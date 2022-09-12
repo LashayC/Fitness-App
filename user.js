@@ -12,12 +12,12 @@ mongoose.connect(process.env.MONGO_CONNECTION,{
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  // username: String,
+  username: String,
   email: String,
   password: String,
-  image: String,
-  fname: String,
-  lname: String
+  // image: String,
+  firstName: String,
+  lastName: String
 });
 // Export Model
 User.plugin(passportLocalMongoose);
