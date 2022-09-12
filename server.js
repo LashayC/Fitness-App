@@ -19,12 +19,12 @@ mongoose.connect(url, {
 
 const db = mongoose.connection;
 db.once("open", (_) => {
-  console.log("Database connected:", url);
+//   console.log("Database connected:", url);
   app.listen(port, () => console.log(`Server running on port ${port}`));
 });
 
 db.on("error", (err) => {
-  console.error("connection error:", url);
+//   console.error("connection error:", url);
 });
 
 
