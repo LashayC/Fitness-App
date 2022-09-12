@@ -1,34 +1,3 @@
-
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-];
-
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First dataset',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30],
-  }]
-};
-
-const config = {
-  type: 'line',
-  data: data,
-  options: {}
-};
-
-const myChart = new Chart(
-document.getElementById('myChart'),
-config
-);
-
 // GET EXERCISES BY GROUP
 async function getExercisesByGroup(muscle){
     const response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
