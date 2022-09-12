@@ -54,6 +54,7 @@ app.use(
 );
 
 // Configure More Middleware
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
