@@ -1,0 +1,19 @@
+.card-body{
+    height: 150px;
+}
+
+#myVideo {
+    position: fixed;
+    right: 5px;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -2;
+}
+
+#home{
+   /* background-image: url('/public/images/home-bg.png');
+    background-size:cover;
+    background-position: 50px ;*/
+}
+

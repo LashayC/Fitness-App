@@ -6,146 +6,203 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Page</title>
+    <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!--MY CSS-->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!--favicon-->
+    <link rel="icon" type="image/x-icon" href="/public/images/logo_plain.png">
+    <!--Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 
 <body>
-    <header class=" h-50 p-3 mb-2 bg-dark text-white">
-        <h1 class="display-1 text-center">Workout Selection</h1>
-    </header>
-    <section class="h-600 text-center d-flex justify-content-center ">
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/chestimg.webp" alt="" class="card-img-top h-10">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Chest</h3>
-                    <div class="d-flex  justify-content-start">
+    <!-- The video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="/public/images/workout-bg.mp4" type="video/mp4">
+    </video>
+    <div class="row">
+        <div class="col-md-2 sideNav">
+        <!--SIDE NAV -->
+        <nav class="h-100" >
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="height: 100vh">
+            <a href="/" class="align-items-center text-center">
+                <img src="/public/images/logo_white_text.png" alt="logo" width="150" height="100">
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" style="text-align:left">
+                <li class="nav-item">
+                <a href="/views/index.html" class="nav-link text-white" aria-current="page">
+                    <i class="bi bi-speedometer2 me-2 pe-none"></i>
+                    Home
+                </a>
+                </li>
+                <li>
+                <a href="/views/workout.html" class="nav-link text-white active">
+                    <i class="bi bi-universal-access-circle me-2 pe-none"></i>
+                    Workouts
+                </a>
+                </li>
+                <li>
+                <a href="#" class="nav-link text-white">
+                    <i class="bi bi-gear-wide-connected me-2 pe-none"></i>
+                    Profile
+                </a>
+                </li>
+            </ul>
+            <hr>
+            <div>
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none " data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>Sign Out</strong>
+                </a>
+            </div>
+            </div>
+        </nav>
+        </div> 
+    
+        <!--MAIN BODY SECTION-->
+        <div class="col-md-10 p-3" id="workout_main">
+            <!--HEADER-->
+            <header class="p-3 bg-dark text-white mb-4 rounded">
+                <h1 class="text-center">Workout Selection</h1>
+            </header>
 
-                        <input value="chest" type="radio" id="upper-chest">
-                        <label for="upper-chest">Chest</label>
-
-                    </div>
+            <!--CARDS-->
+            <section class="h-600 text-center d-flex justify-content-center ">
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/chestimg.webp" alt="" class="card-img-top h-10">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Chest</h3>
+                            <div class="d-flex  justify-content-start">        
+                                <input value="chest" type="radio" id="upper-chest">
+                                <label for="upper-chest">Chest</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/back-muscles.png" alt="" class="card-img-top h-10">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Back</h3>
-                    <div class="d-flex  justify-content-start">
-                        <input value="lats" type="radio" id="lats">
-                        <label class="card-text" for="lats">Lats</label>
-                    </div>
-
-                    <div class="d-flex  justify-content-start">
-                        <input value="lowerBack" type="radio" id="lower-back">
-                        <label class="card-text" for="lower-back">Lower Back</label>
-                    </div>
-                    <div class="d-flex  justify-content-start">
-                        <input value="upperBack" type="radio" id="upper-back">
-                        <label class="card-text" for="upper-back">Upper Back</label>
-                    </div>
-
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/back-muscles.png" alt="" class="card-img-top h-10">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Back</h3>
+                            <div class="d-flex  justify-content-start">
+                                <input value="lats" type="radio" id="lats">
+                                <label class="card-text" for="lats">Lats</label>
+                            </div>
+        
+                            <div class="d-flex  justify-content-start">
+                                <input value="lowerBack" type="radio" id="lower-back">
+                                <label class="card-text" for="lower-back">Lower Back</label>
+                            </div>
+                            <div class="d-flex  justify-content-start">
+                                <input value="upperBack" type="radio" id="upper-back">
+                                <label class="card-text" for="upper-back">Upper Back</label>
+                            </div>
+        
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/leg-muscles.jpeg" alt="" class="card-img-top">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Legs</h3>
-                    <div class="d-flex  justify-content-start">
-                        <input value="quads" type="radio" id="quads">
-                        <label class="card-text" for="quads">Quadriceps</label>
-                    </div>
-
-                    <div class="d-flex  justify-content-start">
-                        <input value="glutes" type="radio" id="glutes">
-                        <label class="card-text" for="glutes">Glutes</label>
-                    </div>
-                    <div class="d-flex  justify-content-start">
-                        <input value="hamstrings" type="radio" id="hamstrings">
-                        <label class="card-text" for="hamstrings">Hamstrings</label>
-                    </div>
-
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/leg-muscles.jpeg" alt="" class="card-img-top">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Legs</h3>
+                            <div class="d-flex  justify-content-start">
+                                <input value="quads" type="radio" id="quads">
+                                <label class="card-text" for="quads">Quadriceps</label>
+                            </div>
+        
+                            <div class="d-flex  justify-content-start">
+                                <input value="glutes" type="radio" id="glutes">
+                                <label class="card-text" for="glutes">Glutes</label>
+                            </div>
+                            <div class="d-flex  justify-content-start">
+                                <input value="hamstrings" type="radio" id="hamstrings">
+                                <label class="card-text" for="hamstrings">Hamstrings</label>
+                            </div>
+        
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-    </section>
-    <section class="h-600 text-center d-flex justify-content-center ">
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/abdominal-muscles.jpeg" alt="" class="card-img-top">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Abs</h3>
-                    <div class="d-flex  justify-content-start">
-                        <input value="abs" type="radio" id="abs">
-                        <label class="card-text" for="abs">Abdominals</label>
-                    </div>
-
+            </section>
+            <section class="h-600 text-center d-flex justify-content-center ">
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/abdominal-muscles.jpeg" alt="" class="card-img-top">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Abs</h3>
+                            <div class="d-flex  justify-content-start">
+                                <input value="abs" type="radio" id="abs">
+                                <label class="card-text" for="abs">Abdominals</label>
+                            </div>
+        
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/arm-muscles.jpeg" alt="" class="card-img-top">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Arms</h3>
-                    <div class="d-flex  justify-content-start">
-                        <input value="bicep" type="radio" id="bicep">
-                        <label class="card-text" for="bicep">Bicep</label>
-                    </div>
-
-                    <div class="d-flex  justify-content-start">
-                        <input value="tricep" type="radio" id="tricep">
-                        <label class="card-text" for="tricep">Tricep</label>
-                    </div>
-                    <div class="d-flex  justify-content-start">
-                        <input value="forearm" type="radio" id="forearms">
-                        <label class="card-text" for="forearms">Forearms</label>
-                    </div>
-
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/arm-muscles.jpeg" alt="" class="card-img-top">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Arms</h3>
+                            <div class="d-flex  justify-content-start">
+                                <input value="bicep" type="radio" id="bicep">
+                                <label class="card-text" for="bicep">Bicep</label>
+                            </div>
+        
+                            <div class="d-flex  justify-content-start">
+                                <input value="tricep" type="radio" id="tricep">
+                                <label class="card-text" for="tricep">Tricep</label>
+                            </div>
+                            <div class="d-flex  justify-content-start">
+                                <input value="forearm" type="radio" id="forearms">
+                                <label class="card-text" for="forearms">Forearms</label>
+                            </div>
+        
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-        <div class=" card d-flex  justify-content-start col-md-2">
-            <img src="../img/full-body.jpeg" alt="" class="card-img-top">
-            <form action="/selection" method="POST">
-                <div class="card-body">
-                    <h3 class="card-title">Other/Extra</h3>
-                    <div class="d-flex  justify-content-start">
-                        <input value="calves" type="radio" id="calves">
-                        <label class="card-text" for="calves">Calves</label>
-                    </div>
-
-                    <div class="d-flex  justify-content-start">
-                        <input value="traps" type="radio" id="traps">
-                        <label class="card-text" for="traps">Traps</label>
-                    </div>
-                    <div class="d-flex  justify-content-start">
-                        <input value="abductors" type="radio" id="abductors">
-                        <label class="card-text" for="abductors">Abductors</label>
-                    </div>
-
-                    <div class="d-flex  justify-content-start">
-                        <input value="adductors" type="radio" id="adductors">
-                        <label class="card-text" for="adductors">Adductors</label>
-                    </div>
-
+                <div class=" card d-flex  justify-content-start col-md-2 m-3 shadow-lg border border-secondary">
+                    <img src="../public/images/full-body.jpeg" alt="" class="card-img-top">
+                    <form action="/selection" method="POST">
+                        <div class="card-body">
+                            <h3 class="card-title">Other/Extra</h3>
+                            <div class="d-flex  justify-content-start">
+                                <input value="calves" type="radio" id="calves">
+                                <label class="card-text" for="calves">Calves</label>
+                            </div>
+        
+                            <div class="d-flex  justify-content-start">
+                                <input value="traps" type="radio" id="traps">
+                                <label class="card-text" for="traps">Traps</label>
+                            </div>
+                            <div class="d-flex  justify-content-start">
+                                <input value="abductors" type="radio" id="abductors">
+                                <label class="card-text" for="abductors">Abductors</label>
+                            </div>
+        
+                            <div class="d-flex  justify-content-start">
+                                <input value="adductors" type="radio" id="adductors">
+                                <label class="card-text" for="adductors">Adductors</label>
+                            </div>
+        
+                        </div>
+                        <button class="btn btn-primary m-2" type="submit"> Select</button>
+                    </form>
                 </div>
-                <button class="btn btn-info" type="submit"> Select</button>
-            </form>
-        </div>
-    </section>
-
+            </section>
+         </div>
+    </div>
+    <!--BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
