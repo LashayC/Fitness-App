@@ -22,22 +22,22 @@
 </head>
   <body class="text-center">
     <main class="form-signin">
-        <form class="mt-5 p-2 rounded bg-light bg-gradient">
+        <form action="/login" method="post" class="mt-5 p-2 rounded bg-light bg-gradient">
           <img class="mb-4" src="/public/images/logo.png" alt="" width="225" height="150">
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       
           <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+            <input type="text" class="form-control" id="floatingInput" placeholder="User Name" name="username">
+            <label for="floatingInput">User Name</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
             <label for="floatingPassword">Password</label>
           </div>
           <br>
-          <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Sign in</button>
+          <button class="w-100 btn btn-lg btn-primary mb-2" type="submit" value="login">Sign in</button>
           <br>
-          <p> Don't have an account ? <a href="#">Register</a></p>
+          <p> Don't have an account ? <a href="/registration">Register</a></p>
           <p class="mt-5 mb-3 text-muted">© 2022</p>
         </form>
       </main>
