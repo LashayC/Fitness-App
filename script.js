@@ -1,7 +1,7 @@
 // GET EXERCISES BY GROUP
 async function getExercisesByGroup(muscle){
     const response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
-        headers:{ 'x-API-Key' : process.env.API_KEY,},
+        headers:{ 'x-API-Key' : process.env.EXERCISE_API_KEY,},
         contentType: 'application/json'
     })
     const exercises = await response.json();
@@ -11,7 +11,7 @@ async function getExercisesByGroup(muscle){
 // GET CALORIES BURNED BY EXERCISE
 async function getCaloriesBurned(activity){
     const response = await fetch('https://api.api-ninjas.com/v1/caloriesburned?activity=' + activity, {
-        headers:{ 'x-API-Key' : process.env.API_KEY,},
+        headers:{ 'x-API-Key' : process.env.EXERCISE_API_KEY,},
         contentType: 'application/json'
     })
     const calories = await response.json();
