@@ -44,7 +44,7 @@ app.use(
 );
 
 // Configure More Middleware
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(passport.initialize());
@@ -158,7 +158,8 @@ app.post("/selection", async (req,res) => {
 
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
-  res.sendFile(__dirname + "/views/profile.html");
+  res.render("profile.ejs", req);
+  console.log(req.user)
 });
 
 // app.put()
