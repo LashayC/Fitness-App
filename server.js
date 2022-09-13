@@ -9,7 +9,11 @@ const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
 const User = require("./user.js"); // User Model
 const url = process.env.MONGO_CONNECTION;
+<<<<<<< HEAD
 const fetch = require("node-fetch");
+=======
+const fetch = require('node-fetch')
+>>>>>>> ca4e6b3cb65b4f43148767ab97f8af699c786d3c
 
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -28,7 +32,11 @@ db.on("error", (err) => {
   //   console.error("connection error:", url);
 });
 
+<<<<<<< HEAD
 app.set("view engine", "ejs");
+=======
+app.set('view engine', 'ejs')
+>>>>>>> ca4e6b3cb65b4f43148767ab97f8af699c786d3c
 
 // Passport.js Authentication ===================================================
 
@@ -45,7 +53,11 @@ app.use(
 // Configure More Middleware
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: false }));
+<<<<<<< HEAD
 app.use(bodyParser.json());
+=======
+app.use(bodyParser.json())
+>>>>>>> ca4e6b3cb65b4f43148767ab97f8af699c786d3c
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -114,6 +126,7 @@ app.get("/logout", function (req, res, next) {
 
 // Routes for Workout ===============
 app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+<<<<<<< HEAD
   res.render("workout.ejs");
 });
 
@@ -142,3 +155,41 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render("profile.ejs", req);
   console.log(req.user)
 });
+=======
+  res.render('workout.ejs', { muscles: undefined });
+});
+
+app.get("/selection", async (req, res) => {
+
+  try {
+
+    let muscle = req.query.muscle
+
+    let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
+      headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
+      contentType: 'application/json'
+    })
+
+    let results = await response.json()
+
+    res.render('workout.ejs', { muscles: results })
+
+  } catch (error) {
+
+    console.error(error)
+
+  }
+
+})
+
+// Routes for Profile ===============
+app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.sendFile(__dirname + "/views/profile.html");
+});
+
+
+
+
+
+
+>>>>>>> ca4e6b3cb65b4f43148767ab97f8af699c786d3c
