@@ -9,6 +9,7 @@ const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
 const User = require("./user.js"); // User Model
 const url = process.env.MONGO_CONNECTION;
+const fetch = require('node-fetch')
 
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -27,25 +28,7 @@ db.on("error", (err) => {
 //   console.error("connection error:", url);
 });
 
-
-
-// Route to Workout
-app.get("/workouts", (req, res) => {
-  res.sendFile(__dirname + "/views/workout.html");
-});
-
-// Route to Profile
-app.get("/profile", (req, res) => {
-  res.sendFile(__dirname + "/views/profile.html");
-});
-
-
-
-
-
-
-
-
+app.set('view engine', 'ejs')
 
 // Passport.js Authentication ===================================================
 
@@ -62,6 +45,7 @@ app.use(
 // Configure More Middleware
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -125,3 +109,44 @@ app.get("/logout", function (req, res, next) {
     res.redirect("/");
   });
 });
+
+// end of passport.js ==
+
+// Routes for Workout ===============
+app.get("/workouts",connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('workout.ejs');
+});
+
+app.get("/selection", async (req,res) =>{
+
+  try {
+
+    let muscle = req.body.muscle
+
+    let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
+      headers:{ 'x-API-Key' : process.env.EXERCISE_API_KEY,},
+      contentType: 'application/json'
+  })
+
+    let results = response.json()
+
+    res.render('workout.ejs', {muscles: results})
+
+} catch (error) {
+
+    console.error(error)
+
+}
+
+})
+
+// Routes for Profile ===============
+app.get("/profile",connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.sendFile(__dirname + "/views/profile.html");
+});
+
+
+
+
+
+

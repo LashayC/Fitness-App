@@ -27,3 +27,21 @@ const labels = [
   document.getElementById('myChart'),
   config
   );
+
+  function getExercises (muscle){
+
+    fetch("/selection",{
+        method: 'get',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({
+            muscle: muscle
+       })
+    })
+    .then(response => {
+        if(response.ok){return response.json()}
+    })
+    .then(data => {
+       let muscles = data
+        window.location.reload(true)
+    })
+  }
