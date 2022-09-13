@@ -66,3 +66,4 @@ function deleteButton(id){
         window.location.reload(true)
     })
 }
+

@@ -22,7 +22,6 @@ mongoose.connect(url, {
 
 const db = mongoose.connection;
 db.once("open", (_) => {
-  //   console.log("Database connected:", url);
   app.listen(port, () => console.log(`Server running on port ${port}`));
 });
 
@@ -122,22 +121,16 @@ app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
 app.get("/selection", async (req, res) => {
 
   try {
-
     let muscle = req.query.muscle
-
     let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
       headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
       contentType: 'application/json'
     })
-
     let results = await response.json()
-
     res.render('workout.ejs', { muscles: results })
-
-  } catch (error) {
-
+  }
+  catch (error) {
     console.error(error)
-
   }
 
 })

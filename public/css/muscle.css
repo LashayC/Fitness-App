@@ -16,6 +16,8 @@
     font-size: 1rem;
     letter-spacing: -0.03em;
     text-transform: uppercase;
+    color: #012f7a;
+    font-weight: bold;
 }
 .muscle-groups label + h2 {
     margin-top: 1rem;

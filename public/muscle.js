@@ -28,3 +28,16 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group)
         else input.checked = true
     });
 })
+
+
+function submit() {
+    let form = document.getElementById('muscle-form');
+    form.submit();
+}
+$(document).on("click",".add-workout-btn", function(){
+    let data = $(this).data('id');
+    console.log(data)
+    $(".modal-body #exercise").val(data.name);
+    $(".modal-body #equipment").val(data.equipment);
+    $(".modal-body #instructions").val(data.instructions);
+})
