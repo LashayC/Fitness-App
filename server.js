@@ -20,12 +20,12 @@ mongoose.connect(url, {
 
 const db = mongoose.connection;
 db.once("open", (_) => {
-//   console.log("Database connected:", url);
+  //   console.log("Database connected:", url);
   app.listen(port, () => console.log(`Server running on port ${port}`));
 });
 
 db.on("error", (err) => {
-//   console.error("connection error:", url);
+  //   console.error("connection error:", url);
 });
 
 app.set('view engine', 'ejs')
@@ -113,35 +113,35 @@ app.get("/logout", function (req, res, next) {
 // end of passport.js ==
 
 // Routes for Workout ===============
-app.get("/workouts",connectEnsureLogin.ensureLoggedIn(), (req, res) => {
-  res.render('workout.ejs');
+app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+  res.render('workout.ejs', { muscles: undefined });
 });
 
-app.get("/selection", async (req,res) =>{
+app.get("/selection", async (req, res) => {
 
   try {
 
-    let muscle = req.body.muscle
+    let muscle = req.query.muscle
 
     let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
-      headers:{ 'x-API-Key' : process.env.EXERCISE_API_KEY,},
+      headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
       contentType: 'application/json'
-  })
+    })
 
-    let results = response.json()
+    let results = await response.json()
 
-    res.render('workout.ejs', {muscles: results})
+    res.render('workout.ejs', { muscles: results })
 
-} catch (error) {
+  } catch (error) {
 
     console.error(error)
 
-}
+  }
 
 })
 
 // Routes for Profile ===============
-app.get("/profile",connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.sendFile(__dirname + "/views/profile.html");
 });
 
