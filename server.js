@@ -8,8 +8,10 @@ const session = require("express-session"); // session middleware
 const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
 const User = require("./user.js"); // User Model
+const {Exercises} = require("./models/exercises")
 const url = process.env.MONGO_CONNECTION;
 const fetch = require('node-fetch')
+const ObjectId = require('mongodb').ObjectId
 
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -20,7 +22,6 @@ mongoose.connect(url, {
 
 const db = mongoose.connection;
 db.once("open", (_) => {
-  //   console.log("Database connected:", url);
   app.listen(port, () => console.log(`Server running on port ${port}`));
 });
 
@@ -120,25 +121,40 @@ app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
 app.get("/selection", async (req, res) => {
 
   try {
-
     let muscle = req.query.muscle
-
     let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
       headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
       contentType: 'application/json'
     })
-
     let results = await response.json()
-
     res.render('workout.ejs', { muscles: results })
-
-  } catch (error) {
-
+  }
+  catch (error) {
     console.error(error)
-
   }
 
 })
+
+app.post("/selection", async (req,res) => {
+
+  let objectId = ObjectId(req.body._id)
+
+  const newExercises = new Exercises({
+      _id: objectId,
+      name: req.body.name,
+      equipment: req.body.equipment,
+      instructions: req.body.instructions,
+      duration: req.body.duration,
+      date: req.body.date
+  })
+
+  await newExercises.save()
+
+  console.log("exercise saved")
+
+  res.redirect("/workouts")
+})
+
 
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
@@ -146,7 +162,17 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   console.log(req.user)
 });
 
+// app.put()
 
+app.delete("/profile", async (req,res) => {
+  let objectId = new ObjectId(req.body._id)
+
+  await Exercises.deleteOne(
+    {_id: objectId}
+  )
+
+  res.json("deleted")
+})
 
 
 
