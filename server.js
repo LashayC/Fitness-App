@@ -29,9 +29,15 @@ db.on("error", (err) => {
 
 
 
+// Route to Workout
+app.get("/workouts", (req, res) => {
+  res.sendFile(__dirname + "/views/workout.html");
+});
 
-
-
+// Route to Profile
+app.get("/profile", (req, res) => {
+  res.sendFile(__dirname + "/views/profile.html");
+});
 
 
 
