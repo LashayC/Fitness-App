@@ -88,7 +88,6 @@ app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
   function (req, res) {
-    // console.log(req.user);
     res.redirect("/dashboard");
   }
 );
@@ -141,9 +140,7 @@ app.get("/selection", async (req, res) => {
 })
 
 app.post("/selection", async (req,res) => {
-
   let objectId = ObjectId(req.user._id)
-
   let date = new Date(req.body.date).toLocaleDateString()
 
   const newExercises = new Exercises({

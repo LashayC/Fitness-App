@@ -48,10 +48,10 @@ function submit() {
 // Updates Values in Add New Workout Modal
 $(document).on("click","#add-workout-btn", function(){
     let data = $(this).data('id');
-    console.log(data)
     $(".modal-body #exercise").val(data.name);
     $(".modal-body #equipment").val(data.equipment);
     $(".modal-body #image").attr("src", data.image);
+    $(".modal-body #imageSrc").val(data.image);
     $(".modal-body #bodypart").val(selectedMuscle);  
 })
 

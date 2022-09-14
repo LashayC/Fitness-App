@@ -260,18 +260,18 @@
                     <!--ADD WORKOUT FORM -->
                     <form action="/selection" method="post">
                         <input id="exercise" class="text-center h2 w-100" name="name" readonly>
-                        <img src="" alt="" id="image" class="w-100" name="image">
+                        <img class="w-100" id="image" src="" >
                         <div class="mb-3">
                             <label class="form-label" for="date">Date</label>
-                            <input class="form-control" type="date" name="date">
+                            <input class="form-control" type="date" name="date" required>
                         </div>    
                         <div class="mb-3"> 
                             <label class="form-label" for="equipment">Equipment</label>
-                            <input class="form-control" type="text" name="equipment"  id="equipment" readonly>
+                            <input class="form-control bg-light" type="text" name="equipment"  id="equipment" readonly>
                         </div>  
                         <div class="mb-3"> 
                             <label class="form-label" for="bodypart">Body Part</label>
-                            <input class="form-control" type="text" name="bodypart"  id="bodypart" readonly>
+                            <input class="form-control bg-light" type="text" name="bodypart"  id="bodypart" readonly>
                         </div>  
                         <div class="mb-3">
                             <label class="form-label" for="duration">Duration in minutes</label>
@@ -284,6 +284,9 @@
                         <div class="mb-3">
                             <label class="form-label" for="reps">Reps</label>
                             <input class="form-control" type="text" name="reps" placeholder="3">
+                        </div>
+                        <div class="mb-3" style="display:none">
+                            <input class="form-control" type="text" name="image" id="imageSrc">
                         </div>
 
                 </div>
