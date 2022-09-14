@@ -142,15 +142,20 @@ app.get("/selection", async (req, res) => {
 
 app.post("/selection", async (req,res) => {
 
-  let objectId = ObjectId(req.body._id)
+  let objectId = ObjectId(req.user._id)
+
+  let date = new Date(req.body.date).toLocaleDateString()
 
   const newExercises = new Exercises({
-      _id: objectId,
+      userId: objectId,
+      date: date,
+      image: req.body.image,
       name: req.body.name,
       equipment: req.body.equipment,
-      instructions: req.body.instructions,
+      bodypart: req.body.bodypart,
       duration: req.body.duration,
-      date: req.body.date
+      liftWeight: req.body.liftWeight,
+      reps: req.body.reps
   })
 
   await newExercises.save()
@@ -167,9 +172,41 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   // console.log(req.user)
 });
 
-// app.put()
+app.post("/profileGoals", async(req,res) => {
+  let objectId = ObjectId(req.user._id)
 
-app.delete("/profile", async (req,res) => {
+  let startDate = new Date(req.body.startDate).toLocaleDateString()
+  let endDate = new Date(req.body.endDate).toLocaleDateString()
+
+  const newGoals = new Goals({
+    userId: objectId,
+    goalName: req.body.goalName,
+    currentWeight: req.body.currentWeight,
+    goalWeight: req.body.goalWeight,
+    startDate: startDate,
+    endDate: endDate
+  })
+
+  await newGoals.save()
+
+  res.redirect("/profile")
+})
+
+app.put("/profileGoals", async (req,res) => {
+  let objectId = ObjectId(req.body._id)
+
+
+  await Goals.findOneAndUpdate({_id: objectId},{
+    goalName: req.body.goalName,
+    currentWeight: req.body.currentWeight,
+    goalWeight: req.body.goalWeight,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate
+  })
+  res.json("Updated")
+})
+
+app.delete("/profileGoals", async (req,res) => {
   let objectId = new ObjectId(req.body._id)
 
   await Exercises.deleteOne(

@@ -2,11 +2,12 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const goalsSchema = new Schema({
+    userId: mongoose.ObjectId,
     goalName: String,
     currentWeight: Number,
     goalWeight: Number,
-    startDate: Date,
-    endDate: Date
+    startDate: String,
+    endDate: String
 })
 
 const Goals = mongoose.model("Goals", goalsSchema)
