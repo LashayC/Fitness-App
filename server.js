@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const express = require("express");
 const app = express();
-var port = process.env.PORT || 8000;
+var port = process.env.PORT || 5000;
 const bodyParser = require("body-parser"); // parser middleware
 const session = require("express-session"); // session middleware
 const passport = require("passport"); // authentication
@@ -167,9 +167,12 @@ app.post("/selection", async (req,res) => {
 
 
 // Routes for Profile ===============
-app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("profile.ejs", req);
-  // console.log(req.user)
+app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async(req, res) => {
+
+  const exercises = await Exercises.find()
+  const goals = await Goals.find()
+  res.render("profile.ejs", {req: req, exerciseDB: exercises, goalsDB: goals});
+
 });
 
 app.post("/profileGoals", async(req,res) => {
@@ -193,17 +196,24 @@ app.post("/profileGoals", async(req,res) => {
 })
 
 app.put("/profileGoals", async (req,res) => {
-  let objectId = ObjectId(req.body._id)
-
-
-  await Goals.findOneAndUpdate({_id: objectId},{
-    goalName: req.body.goalName,
-    currentWeight: req.body.currentWeight,
-    goalWeight: req.body.goalWeight,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate
-  })
-  res.json("Updated")
+ try {
+   let objectId = ObjectId(req.body._id)
+   console.log('The goal PUT', req.body)
+   let startDate = new Date(req.body.startDate).toLocaleDateString()
+   let endDate = new Date(req.body.endDate).toLocaleDateString()
+ 
+   await Goals.findOneAndUpdate({_id: objectId},{
+     goalName: req.body.goalName,
+     currentWeight: req.body.currentWeight,
+     goalWeight: req.body.goalWeight,
+     startDate: startDate,
+     endDate: endDate
+   })
+   res.json("Updated")
+   res.redirect("/profile")
+ } catch (error) {
+  console.log('Error:', error)
+ }
 })
 
 app.delete("/profileGoals", async (req,res) => {
