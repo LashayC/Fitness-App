@@ -36,7 +36,11 @@ function editButton(id){
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({
-            _id: id
+            goalID: id,
+            currentWeight: currentWeight,
+            goalName: goalName,
+            startDate: startDate,
+            endDate: endDate
         })
     })
     .then(res => {

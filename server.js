@@ -159,7 +159,6 @@ app.post("/selection", async (req,res) => {
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render("profile.ejs", req);
-  console.log(req.user)
 });
 
 // app.put()
