@@ -111,7 +111,7 @@ app.get("/logout", function (req, res, next) {
   });
 });
 
-// end of passport.js ==
+// end of passport.js == 
 
 // Routes for Workout ===============
 app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
