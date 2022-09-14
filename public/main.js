@@ -55,8 +55,29 @@ function editButton(id){
 }
 
 
-// goals delete
+// profile goals delete
 function deleteButton(id){
+
+
+    fetch("/profileExercises", {
+        method: 'delete',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify({
+            _id: id
+        })
+    })
+    .then(res => {
+        if(res.ok){return res.json()}
+    })
+    .then(data => {
+        window.location.reload(true)
+    })
+}
+
+
+// profile exercises delete
+
+function deleteBtn(id){
 
 
     fetch("/profileGoals", {
@@ -73,4 +94,3 @@ function deleteButton(id){
         window.location.reload(true)
     })
 }
-
