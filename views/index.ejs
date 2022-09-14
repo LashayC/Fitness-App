@@ -64,13 +64,14 @@
     <!-- MAIN PANEL-->
     <div class="col-md-10" >
         <div class="row justify-content-center p-4">
+          <%for(var i = 0; i < goalsDB.length; i++){ %>
           <!--HEADER-->
           <header class="p-2 bg-dark text-white mb-2 mt-2">
             <h1 class="text-center">My Dashboard</h1>
          </header>
           <div class="col-md-3 rounded border p-2 ">
             <h6>Current Weight</h6>
-            <h1>125 lbs</h1>
+            <h1><%= goalsDB[i].currentWeight%> <span>lbs</span></h1>
           </div>
           <div class="col-md-3 rounded border  p-2 ">
             <h6>Total Workouts Completed</h6>
@@ -78,14 +79,14 @@
           </div>
           <div class="col-md-3 rounded border  p-3 ">
             <h6>Goal Weight</h6>
-            <h1>110 lbs</h1>
+            <h1><%= goalsDB[i].goalWeight%> <span>lbs</span></h1>
           </div>
           <div class="col-md-3 rounded border  p-3 ">
             <h6>Total Calories Burned</h6>
             <h1>4045 cal</h1>
           </div>
         
-
+          <% }%>
         <div class=" col border rounded p-3">
             <h2>Chart</h2>
             <div style="width: 1100px; height:auto; margin:auto">
