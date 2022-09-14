@@ -172,8 +172,10 @@
 
                             <!-- Goals Render -->
                             <div class="col-md-6 border">
-                                <%for(var i = 0; i < goalsDB.length; i++){ %>
-                                <div class="row mt-1 row-cols-md-2 g-4">
+                                <!-- <div class="row mt-1 row-cols-md-2 g-4"> -->
+                                    <div class="row mt-1 row-cols-md-2 g-4">
+                                        <%for(var i = 0; i < goalsDB.length; i++){ %>
+
                                     <div class="col">
                                         <div class="card h-100">
                                             <div class="card-body">
@@ -195,7 +197,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <%}%>
                                 </div>
                                 
                             
@@ -203,6 +205,8 @@
                             <!-- Goals Update Form Modal -->
                            
                             <!-- Modal -->
+                            <%for(var i = 0; i < goalsDB.length; i++){ %>
+
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                 <div class="modal-content">
@@ -289,11 +293,11 @@
                                             </div>
                                         </div>
                                         <% } %>
-                                  </div>
+                                </div>
                             </div>
                             <div class="col-md-6 border">
                                 <h2 class="text-center mb-5">Previous Workouts</h2>
-                                <div class="row row-cols-2">
+                                <div class="row row-cols-2 g-4">
                                     <%for(var i = 0; i < exerciseDB.length; i++){ %>
                                         <div class="col" id="previous">
                                             <div class="card h-100">
