@@ -166,8 +166,8 @@ app.post("/selection", async (req,res) => {
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async(req, res) => {
 
-  const exercises = await Exercises.find()
-  const goals = await Goals.find()
+  const exercises = await Exercises.find({userId: req.user._id})
+  const goals = await Goals.find({userId: req.user._id})
   res.render("profile.ejs", {req: req, exerciseDB: exercises, goalsDB: goals});
 
 });
@@ -195,6 +195,7 @@ app.post("/profileGoals", async(req,res) => {
 app.put("/profileGoals", async (req,res) => {
  try {
    let objectId = ObjectId(req.body._id)
+
    console.log('The goal PUT', req.body)
    let startDate = new Date(req.body.startDate).toLocaleDateString()
    let endDate = new Date(req.body.endDate).toLocaleDateString()
