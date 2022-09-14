@@ -216,7 +216,9 @@ app.put("/profileGoals", async (req,res) => {
  }
 })
 
-app.delete("/profileGoals", async (req,res) => {
+
+// delete profile exercises
+app.delete("/profileExercises", async (req,res) => {
   let objectId = new ObjectId(req.body._id)
 
   await Exercises.deleteOne(
@@ -226,6 +228,17 @@ app.delete("/profileGoals", async (req,res) => {
   res.json("deleted")
 })
 
+
+// delete profile goals
+app.delete("/profileGoals", async (req,res) => {
+  let objectId = new ObjectId(req.body._id)
+
+  await Goals.deleteOne(
+    {_id: objectId}
+  )
+
+  res.json("deleted")
+})
 
 
 
