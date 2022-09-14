@@ -33,13 +33,19 @@ const myChart = new Chart(
 // goals edit
 function editButton(id){
 
+    let newGoalName = document.querySelector('#newGoalName').value
+    let newCurrentWeight = document.querySelector('#newCurrentWeight').value
+    let newGoalWeight = document.querySelector('#newGoalWeight').value
+    let newStartDate = document.querySelector('#newStartDate').value
+    let newEndDate = document.querySelector('#newEndDate').value
+
     let goalBody = {}
     goalBody._id = id || null
-    goalBody.goalName = req.body.goalName || null
-    goalBody.currentWeight = req.body.currentWeight || null
-    goalBody.goalWeight = req.body.goalWeight || null
-    goalBody.startDate = req.body.startDate || null
-    goalBody.endDate = req.body.endDate || null
+    goalBody.goalName = newGoalName || null
+    goalBody.currentWeight = newCurrentWeight || null
+    goalBody.goalWeight = newGoalWeight || null
+    goalBody.startDate = newStartDate || null
+    goalBody.endDate = newEndDate || null
 
     fetch("/profileGoals", {
         method: 'put',

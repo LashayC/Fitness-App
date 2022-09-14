@@ -88,7 +88,6 @@ app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
   function (req, res) {
-    // console.log(req.user);
     res.redirect("/dashboard");
   }
 );
@@ -141,9 +140,7 @@ app.get("/selection", async (req, res) => {
 })
 
 app.post("/selection", async (req,res) => {
-
   let objectId = ObjectId(req.user._id)
-
   let date = new Date(req.body.date).toLocaleDateString()
 
   const newExercises = new Exercises({
@@ -169,8 +166,8 @@ app.post("/selection", async (req,res) => {
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async(req, res) => {
 
-  const exercises = await Exercises.find()
-  const goals = await Goals.find()
+  const exercises = await Exercises.find({userId: req.user._id})
+  const goals = await Goals.find({userId: req.user._id})
   res.render("profile.ejs", {req: req, exerciseDB: exercises, goalsDB: goals});
 
 });
@@ -198,6 +195,7 @@ app.post("/profileGoals", async(req,res) => {
 app.put("/profileGoals", async (req,res) => {
  try {
    let objectId = ObjectId(req.body._id)
+
    console.log('The goal PUT', req.body)
    let startDate = new Date(req.body.startDate).toLocaleDateString()
    let endDate = new Date(req.body.endDate).toLocaleDateString()
