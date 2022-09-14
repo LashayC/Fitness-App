@@ -39,3 +39,6 @@
     height: 100px;
     overflow: hidden;
 }
+.card-body {
+    height: 70px;
+}

@@ -122,11 +122,15 @@ app.get("/selection", async (req, res) => {
 
   try {
     let muscle = req.query.muscle
-    let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
-      headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
+    // Exercise DB API
+    let response = await fetch('https://exercisedb.p.rapidapi.com/exercises/target/'+ muscle, {
+      headers: {
+        'X-RapidAPI-Key': process.env.EXERCISE_API_KEY,
+        'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+      },
       contentType: 'application/json'
     })
-    let results = await response.json()
+    let results = await response.json();
     res.render('workout.ejs', { muscles: results })
   }
   catch (error) {

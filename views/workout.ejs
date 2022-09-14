@@ -86,8 +86,8 @@
                                 <label for="lats">Lats</label>
                                 
                                 <h2>Core</h2>
-                                <input type="radio" class="abs muscles-helper" id="abs" value="abdominals" name="muscle" oninput="submit()"> <label for="abs">Abs</label>
-                                <input type="radio" class="pectorals muscles-helper" id="pectorals" value="chest"name="muscle" oninput="submit()"> <label for="pectorals">Pectorals</label>
+                                <input type="radio" class="abs muscles-helper" id="abs" value="abs" name="muscle" oninput="submit()"> <label for="abs">Abs</label>
+                                <input type="radio" class="pectorals muscles-helper" id="pectorals" value="pectorals" name="muscle" oninput="submit()"> <label for="pectorals">Pectorals</label>
                                 
                                 <h2>Legs</h2>
                                 <input type="radio" class="adductors muscles-helper" id="adductors" value="adductors" name="muscle" oninput="submit()">
@@ -214,20 +214,28 @@
 
                     </div>
                 </div>
+                <!-- RESULTS -->
                 <div class="col-md-6 border">
                     <% if(muscles){ %>
-                        <h1 class="text-center">Results</h1>
-                        <% for (let i=0; i < muscles.length; i++){%>
-                                <div class="col border rounded p-2 mb-2 exercise-data">
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn add-workout-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                        data-id='{"name": "<%= muscles[i].name %>","equipment" : "<%= muscles[i].equipment %>","instructions": "<%= muscles[i].instructions %>"}'>
-                                        <i class="bi bi-plus-circle-fill add-workout-icon"></i>
-                                    </button>
-                                    <h5 class="fw-bold"> <%= muscles[i].name %></h5> 
-                                    <p><span class="fw-bold">Equipment: </span> <%= muscles[i].equipment %></p>
-                                </div>
-                        <% } %>
+                        <h2 class="text-center">Results</h2>
+                        <div class="row row-cols-md-4 g-2">
+                            <% for (let i=0; i < muscles.length; i++){%>
+                                    <div class="col">
+                                        <div class="card shadow-sm" style="width: 10rem;">
+                                            <img src="<%= muscles[i].gifUrl %>" class="card-img-top" alt="<%= muscles[i].name %>">
+                                            <div class="card-body">
+                                                <h6 class="card-title"><%= muscles[i].name %></h6>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                                 data-id='{"name": "<%= muscles[i].name %>","equipment" : "<%= muscles[i].equipment %>","image": "<%= muscles[i].gifUrl %>"}'>
+                                                 Add Workout
+                                                </button>
+                                            </div>
+                                        </div>
+                                     </div>
+                            <% } %>
+                        </div>
                     <% } %>
                 </div>
             </div>
