@@ -93,12 +93,15 @@ app.post(
 );
 
 // Route to Dashboard after authentication
-app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
+app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   // res.send(`Hello ${req.user.username}. Your session ID is ${req.sessionID}
   // and your session expires in ${req.session.cookie.maxAge}
   // milliseconds.<br><br>
   // <a href="/logout">Log Out</a><br><br><a href="/secret">Members Only</a>`);
-  res.sendFile(__dirname + "/views/index.html");
+  const exercises = await Exercises.find({userId: req.user._id})
+  const goals = await Goals.find({userId: req.user._id})
+
+  res.render("index.ejs", {req: req, exerciseDB: exercises, goalsDB: goals})
 });
 
 // Route to login
