@@ -118,7 +118,9 @@ let goalsDiv = document.getElementById('goalsDiv')
 goalsDiv.addEventListener('click', (e) => {
     if(e.target.id === 'favoriteBtn'){
         let goalCardFav;
-        console.log(e.target.parentNode.parentNode.parentNode)
+        console.log('fav div parent',e.target.parentNode.parentNode.parentNode.parentNode.childNodes)
+        console.log('fav div parent',e.target.parentNode.parentNode.parentNode.parentNode.cåhildNodes)
+        console.log('fav div class',e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1])
 
 
 
