@@ -9,6 +9,7 @@ const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
 const User = require("./models/user.js"); // User Model
 const {Exercises} = require("./models/exercises")
+const {Goals} = require("./models/goals")
 const url = process.env.MONGO_CONNECTION;
 const fetch = require('node-fetch')
 const ObjectId = require('mongodb').ObjectId

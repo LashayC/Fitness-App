@@ -46,16 +46,17 @@ function submit() {
 }
 
 // Updates Values in Add New Workout Modal
-$(document).on("click",".add-workout-btn", function(){
+$(document).on("click","#add-workout-btn", function(){
     let data = $(this).data('id');
     console.log(data)
-    $(".modal-body #exercise").val(data.name);
+    $(".modal-body #exercise").html(data.name);
     $(".modal-body #equipment").val(data.equipment);
-    $(".modal-body #instructions").val(data.instructions);
+    $(".modal-body #image").attr("src", data.image);
+    $(".modal-body #bodypart").val(selectedMuscle);  
 })
 
 // SELECTS MUSCLE GROUP ON LOAD
 $(document).ready(function(){
-    let selection = `#muscle-form input[value=${selectedMuscle}]`;
-    $(selection).prop("checked", true);
+    let bodyPart = `#muscle-form input[value=${selectedMuscle}]`;
+    $(bodyPart).prop("checked", true);
 })
