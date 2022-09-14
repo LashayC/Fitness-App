@@ -69,11 +69,11 @@
                 </header>
                 <div class="row">
                     <div class="col-md-6 border">
-                        <h1 class="text-center mb-4">Select a body part to workout</h1>
+                        <h2 class="text-center mb-5">Select a body part to workout</h2>
                         <form action="/selection" method="get" id="muscle-form">
                             <div class="muscle-groups">
                                 <h2>Arms</h2>
-                                <input type="radio" class="biceps muscles-helper" id="biceps" value="biceps"name="muscle" onchange="submit()"> 
+                                <input type="radio" class="biceps muscles-helper" id="biceps" value="biceps"name="muscle" oninput="submit()"> 
                                 <label for="biceps">Biceps</label>
                                 <input type="radio" class="forearms muscles-helper" id="forearms" value="forearms"name="muscle" oninput="submit()">
                                 <label for="forearms">Forearms</label>
