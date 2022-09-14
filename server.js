@@ -146,8 +146,6 @@ app.post("/selection", async (req,res) => {
   let objectId = ObjectId(req.user._id)
   let date = new Date(req.body.date).toLocaleDateString()
 
-  let calories = await calculateCalories(req.body);
-  console.log(calories)
   const newExercises = new Exercises({
       userId: objectId,
       date: date,
@@ -157,7 +155,9 @@ app.post("/selection", async (req,res) => {
       bodypart: req.body.bodypart,
       duration: req.body.duration,
       liftWeight: req.body.liftWeight,
-      reps: req.body.reps
+      reps: req.body.reps,
+      intensity: req.body.intensity,
+      calories: "150"
   })
 
   await newExercises.save()
@@ -246,12 +246,12 @@ app.delete("/profileGoals", async (req,res) => {
 
 // calculates Calories
 async function calculateCalories(workout){
+  console.log(workout)
   const kg = 0.453592;
   let calories;
-  let intensity = workout.intensity;
-  let duration = workout.duration/60;
-  let currentWeight = await Goals.findOne().sort({created_at: -1})
-  console.log(currentWeight);
+  let intensity = workout.body.intensity;
+  let duration = workout.body.duration/60;
+
   if(intensity === 'light'){
      calories = 3.5 * (currentWeight*kg) / duration;
   }
@@ -262,5 +262,5 @@ async function calculateCalories(workout){
     calories = 6 * (currentWeight*kg) / duration;
   }
 
-  return calories
+  return 100;
 }
