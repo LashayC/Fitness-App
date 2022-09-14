@@ -1,32 +1,32 @@
-const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-];
+// const labels = [
+//     'January',
+//     'February',
+//     'March',
+//     'April',
+//     'May',
+//     'June',
+// ];
 
-const data = {
-    labels: labels,
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30],
-    }]
-};
+// const data = {
+//     labels: labels,
+//     datasets: [{
+//         label: 'My First dataset',
+//         backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30],
+//     }]
+// };
 
-const config = {
-    type: 'line',
-    data: data,
-    options: {}
-};
+// const config = {
+//     type: 'line',
+//     data: data,
+//     options: {}
+// };
 
-const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-);
+// const myChart = new Chart(
+//     document.getElementById('myChart'),
+//     config
+// );
 
 
 
@@ -100,3 +100,27 @@ function deleteBtn(id){
         window.location.reload(true)
     })
 }
+
+let goalsDiv = document.getElementById('goalsDiv')
+
+// function favoriteBtn(id){
+//    let favGoalCard = document.querySelector('#favoriteChecker')
+//     console.log('')
+//    if(!favGoalCard.classList.contains('favorite')){
+//     favGoalCard.classList.add('favorite')
+//    }else{
+//     favGoalCard.classList.remove('favorite')
+//    }
+
+// }
+
+
+goalsDiv.addEventListener('click', (e) => {
+    if(e.target.id === 'favoriteBtn'){
+        let goalCardFav;
+        console.log(e.target.parentNode.parentNode.parentNode)
+
+
+
+    }
+})
