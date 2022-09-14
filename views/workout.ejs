@@ -98,7 +98,7 @@
                                 
                                 <label for="hamstrings">Hamstrings</label>
                                 <input type="radio" class="glutes muscles-helper" id="glutes" value="glutes"name="muscle" oninput="submit()"> <label for="glutes">Glutes</label>
-                                <input type="radio" class="quads muscles-helper" id="quads" value="quadriceps"name="muscle" oninput="submit()"> <label for="quads">Quads</label>
+                                <input type="radio" class="quads muscles-helper" id="quads" value="quads" name="muscle" oninput="submit()"> <label for="quads">Quads</label>
                         </form>
                         <svg width="100%" height="100%" viewBox="0 0 176 207" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -253,8 +253,8 @@
                 <div class="modal-body">
                     <!--ADD WORKOUT FORM -->
                     <form action="/selection" method="post">
-                        <h2 id="exercise" class="text-center" name="name"></h2>
-                        <img src="" alt="" id="image" name="image">
+                        <input id="exercise" class="text-center h2 w-100" name="name" readonly>
+                        <img src="" alt="" id="image" class="w-100" name="image">
                         <div class="mb-3">
                             <label class="form-label" for="date">Date</label>
                             <input class="form-control" type="date" name="date">
