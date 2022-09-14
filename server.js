@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const express = require("express");
 const app = express();
-var port = process.env.PORT || 5000;
+var port = 8000;
 const bodyParser = require("body-parser"); // parser middleware
 const session = require("express-session"); // session middleware
 const passport = require("passport"); // authentication
