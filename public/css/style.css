@@ -11,11 +11,6 @@
     z-index: -2;
 }
 
-#home{
-   /* background-image: url('/public/images/home-bg.png');
-    background-size:cover;
-    background-position: 50px ;*/
-}
 
 .form-signin{
     width: 100%;
@@ -24,6 +19,35 @@
     margin:auto;
 }
 .login{
-    background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1975&q=80');
+    background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&f');
+    background-size:cover;
+}
+.registration{
+    background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&f');
+    background-size:cover;
+}
+.add-workout-icon{
+    font-size: 25px;
+    color: green;
+}
+.add-workout-btn{
+    float:right;
+    margin-top: -12px;
+}
+.exercise-data{
+    height: 100px;
+    overflow: hidden;
+}
+.card-body {
+    height: 70px;
 }
 
+.exerecise-results{
+    overflow: scroll;
+    height: 750px;
+}
+#reg_image{
+    width: 230px !important;
+    height: 150px !important;
+    margin:auto;
+} 
