@@ -7,7 +7,7 @@ const bodyParser = require("body-parser"); // parser middleware
 const session = require("express-session"); // session middleware
 const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
-const User = require("./user.js"); // User Model
+const User = require("./models/user.js"); // User Model
 const {Exercises} = require("./models/exercises")
 const url = process.env.MONGO_CONNECTION;
 const fetch = require('node-fetch')
@@ -87,7 +87,7 @@ app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
   function (req, res) {
-    console.log(req.user);
+    // console.log(req.user);
     res.redirect("/dashboard");
   }
 );
@@ -163,7 +163,7 @@ app.post("/selection", async (req,res) => {
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render("profile.ejs", req);
-  console.log(req.user)
+  // console.log(req.user)
 });
 
 // app.put()

@@ -3,11 +3,14 @@ const Schema = mongoose.Schema
 
 const exerciseSchema = new Schema({
     _id: mongoose.ObjectId,
+    date: Date,
+    image: String,
     name: String,
     equipment: String,
-    instructions: String,
+    bodypart: String,
     duration: String,
-    date: Date
+    liftWeight: String,
+    reps: String,
 })
 
 const Exercises = mongoose.model("Exercises", exerciseSchema)
