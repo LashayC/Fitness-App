@@ -60,12 +60,12 @@ passport.deserializeUser(User.deserializeUser());
 
 // Route to Login
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/views/login.html");
+  res.render("login.ejs")
 });
 
 //   Route to Registration Page
 app.get("/registration", (req, res) => {
-  res.sendFile(__dirname + "/views/registration.html");
+  res.render("registration.ejs")
 });
 
 // Route to Register
@@ -80,7 +80,7 @@ app.post("/register", (req, res) => {
     },
     req.body.password
   );
-  res.sendFile(__dirname + "/views/login.html");
+  res.render("login.ejs");
 });
 
 //   Route to authenticate with login
