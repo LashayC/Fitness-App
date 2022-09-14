@@ -11,6 +11,8 @@ const exerciseSchema = new Schema({
     duration: String,
     liftWeight: String,
     reps: String,
+    intensity: String,
+    calories: String,
 })
 
 const Exercises = mongoose.model("Exercises", exerciseSchema)

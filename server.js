@@ -155,7 +155,9 @@ app.post("/selection", async (req,res) => {
       bodypart: req.body.bodypart,
       duration: req.body.duration,
       liftWeight: req.body.liftWeight,
-      reps: req.body.reps
+      reps: req.body.reps,
+      intensity: req.body.intensity,
+      calories: "150"
   })
 
   await newExercises.save()
@@ -242,4 +244,23 @@ app.delete("/profileGoals", async (req,res) => {
 })
 
 
+// calculates Calories
+async function calculateCalories(workout){
+  console.log(workout)
+  const kg = 0.453592;
+  let calories;
+  let intensity = workout.body.intensity;
+  let duration = workout.body.duration/60;
 
+  if(intensity === 'light'){
+     calories = 3.5 * (currentWeight*kg) / duration;
+  }
+  if(intensity === 'moderate'){
+    calories = 5 * (currentWeight*kg) / duration;
+  }
+  if(intensity === 'vigorous'){
+    calories = 6 * (currentWeight*kg) / duration;
+  }
+
+  return 100;
+}
