@@ -30,9 +30,16 @@ const myChart = new Chart(
 
 
 
-// edit
+// goals edit
 function editButton(id){
-    fetch("/profile", {
+
+    let newGoalName = prompt("Please enter new goal name")
+    let newCurrent = prompt("Please enter new current weight")
+    let newGoal = prompt("Please enter new goal weight")
+    let newStartDate = prompt("Please enter new start date")
+    let newEndDate = prompt("Please enter new end date")
+
+    fetch("/goals", {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({
@@ -52,11 +59,11 @@ function editButton(id){
 }
 
 
-// delete
+// goals delete
 function deleteButton(id){
 
 
-    fetch("/profile", {
+    fetch("/goals", {
         method: 'delete',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({

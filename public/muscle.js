@@ -1,3 +1,7 @@
+const queryString = window.location.search;
+const urlParam = new URLSearchParams(queryString);
+const selectedMuscle = urlParam.get('muscle');
+
 document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group) {
     // For the hover
     group.addEventListener('mouseover', function (el) {
@@ -24,20 +28,35 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group)
         let id = el.path[1].id.toLowerCase()
         if (!id) id = el.path[2].id.toLowerCase()
         let input = document.getElementById(id)
-        if (input.checked) input.checked = false
-        else input.checked = true
+        if (input.checked){
+            input.checked = false
+        } 
+        else {
+            input.checked = true
+            submit();
+        }
     });
 })
 
 
+// Submits Form 
 function submit() {
     let form = document.getElementById('muscle-form');
-    form.submit();
+    form.submit(); 
 }
-$(document).on("click",".add-workout-btn", function(){
+
+// Updates Values in Add New Workout Modal
+$(document).on("click","#add-workout-btn", function(){
     let data = $(this).data('id');
     console.log(data)
     $(".modal-body #exercise").val(data.name);
     $(".modal-body #equipment").val(data.equipment);
-    $(".modal-body #instructions").val(data.instructions);
+    $(".modal-body #image").attr("src", data.image);
+    $(".modal-body #bodypart").val(selectedMuscle);  
+})
+
+// SELECTS MUSCLE GROUP ON LOAD
+$(document).ready(function(){
+    let bodyPart = `#muscle-form input[value=${selectedMuscle}]`;
+    $(bodyPart).prop("checked", true);
 })

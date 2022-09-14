@@ -39,3 +39,11 @@
     height: 100px;
     overflow: hidden;
 }
+.card-body {
+    height: 70px;
+}
+
+.exerecise-results{
+    overflow: scroll;
+    height: 750px;
+}

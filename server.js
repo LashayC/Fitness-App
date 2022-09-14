@@ -7,8 +7,9 @@ const bodyParser = require("body-parser"); // parser middleware
 const session = require("express-session"); // session middleware
 const passport = require("passport"); // authentication
 const connectEnsureLogin = require("connect-ensure-login"); //authorization
-const User = require("./user.js"); // User Model
+const User = require("./models/user.js"); // User Model
 const {Exercises} = require("./models/exercises")
+const {Goals} = require("./models/goals")
 const url = process.env.MONGO_CONNECTION;
 const fetch = require('node-fetch')
 const ObjectId = require('mongodb').ObjectId
@@ -87,7 +88,7 @@ app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
   function (req, res) {
-    console.log(req.user);
+    // console.log(req.user);
     res.redirect("/dashboard");
   }
 );
@@ -111,7 +112,7 @@ app.get("/logout", function (req, res, next) {
   });
 });
 
-// end of passport.js ==
+// end of passport.js == 
 
 // Routes for Workout ===============
 app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
@@ -122,11 +123,15 @@ app.get("/selection", async (req, res) => {
 
   try {
     let muscle = req.query.muscle
-    let response = await fetch('https://api.api-ninjas.com/v1/exercises?muscle=' + muscle, {
-      headers: { 'x-API-Key': process.env.EXERCISE_API_KEY, },
+    // Exercise DB API
+    let response = await fetch('https://exercisedb.p.rapidapi.com/exercises/target/'+ muscle, {
+      headers: {
+        'X-RapidAPI-Key': process.env.EXERCISE_API_KEY,
+        'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+      },
       contentType: 'application/json'
     })
-    let results = await response.json()
+    let results = await response.json();
     res.render('workout.ejs', { muscles: results })
   }
   catch (error) {
@@ -137,15 +142,20 @@ app.get("/selection", async (req, res) => {
 
 app.post("/selection", async (req,res) => {
 
-  let objectId = ObjectId(req.body._id)
+  let objectId = ObjectId(req.user._id)
+
+  let date = new Date(req.body.date).toLocaleDateString()
 
   const newExercises = new Exercises({
-      _id: objectId,
+      userId: objectId,
+      date: date,
+      image: req.body.image,
       name: req.body.name,
       equipment: req.body.equipment,
-      instructions: req.body.instructions,
+      bodypart: req.body.bodypart,
       duration: req.body.duration,
-      date: req.body.date
+      liftWeight: req.body.liftWeight,
+      reps: req.body.reps
   })
 
   await newExercises.save()
@@ -159,11 +169,44 @@ app.post("/selection", async (req,res) => {
 // Routes for Profile ===============
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render("profile.ejs", req);
+  // console.log(req.user)
 });
 
-// app.put()
+app.post("/profileGoals", async(req,res) => {
+  let objectId = ObjectId(req.user._id)
 
-app.delete("/profile", async (req,res) => {
+  let startDate = new Date(req.body.startDate).toLocaleDateString()
+  let endDate = new Date(req.body.endDate).toLocaleDateString()
+
+  const newGoals = new Goals({
+    userId: objectId,
+    goalName: req.body.goalName,
+    currentWeight: req.body.currentWeight,
+    goalWeight: req.body.goalWeight,
+    startDate: startDate,
+    endDate: endDate
+  })
+
+  await newGoals.save()
+
+  res.redirect("/profile")
+})
+
+app.put("/profileGoals", async (req,res) => {
+  let objectId = ObjectId(req.body._id)
+
+
+  await Goals.findOneAndUpdate({_id: objectId},{
+    goalName: req.body.goalName,
+    currentWeight: req.body.currentWeight,
+    goalWeight: req.body.goalWeight,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate
+  })
+  res.json("Updated")
+})
+
+app.delete("/profileGoals", async (req,res) => {
   let objectId = new ObjectId(req.body._id)
 
   await Exercises.deleteOne(
