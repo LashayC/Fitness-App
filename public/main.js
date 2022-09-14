@@ -30,7 +30,7 @@ const myChart = new Chart(
 
 
 
-// profile edit
+// goals edit
 function editButton(id){
 
     let newGoalName = prompt("Please enter new goal name")
@@ -59,11 +59,11 @@ function editButton(id){
 }
 
 
-// profile delete
+// goals delete
 function deleteButton(id){
 
 
-    fetch("/profile", {
+    fetch("/goals", {
         method: 'delete',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({
