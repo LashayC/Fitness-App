@@ -38,7 +38,7 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group)
     });
 })
 
-
+ 
 // Submits Form 
 function submit() {
     let form = document.getElementById('muscle-form');
