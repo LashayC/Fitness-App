@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const exerciseSchema = new Schema({
-    _id: mongoose.ObjectId,
-    date: Date,
+    userId: mongoose.ObjectId,
+    date: String,
     image: String,
     name: String,
     equipment: String,
