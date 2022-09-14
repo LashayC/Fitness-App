@@ -215,10 +215,10 @@
                     </div>
                 </div>
                 <!-- RESULTS -->
-                <div class="col-md-6 border">
+                <div class="col-md-6 border ">
                     <% if(muscles){ %>
                         <h2 class="text-center">Results</h2>
-                        <div class="row row-cols-md-4 g-2">
+                        <div class="row row-cols-md-4 g-2 exerecise-results">
                             <% for (let i=0; i < muscles.length; i++){%>
                                     <div class="col">
                                         <div class="card shadow-sm" style="width: 10rem;">
@@ -227,7 +227,7 @@
                                                 <h6 class="card-title"><%= muscles[i].name %></h6>
                                             </div>
                                             <div class="card-footer">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="add-workout-btn"
                                                  data-id='{"name": "<%= muscles[i].name %>","equipment" : "<%= muscles[i].equipment %>","image": "<%= muscles[i].gifUrl %>"}'>
                                                  Add Workout
                                                 </button>
@@ -253,21 +253,33 @@
                 <div class="modal-body">
                     <!--ADD WORKOUT FORM -->
                     <form action="/selection" method="post">
-                        <label for="">Name </label>
-                        <input class="form-control" type="text" name="name"  id="exercise" readonly >
+                        <h2 id="exercise" class="text-center"></h2>
+                        <img src="" alt="" id="image">
+                        <div class="mb-3">
+                            <label class="form-label" for="date">Date</label>
+                            <input class="form-control" type="date" name="date">
+                        </div>    
+                        <div class="mb-3"> 
+                            <label class="form-label" for="equipment">Equipment</label>
+                            <input class="form-control" type="text" name="equipment"  id="equipment" readonly>
+                        </div>  
+                        <div class="mb-3"> 
+                            <label class="form-label" for="bodypart">Body Part</label>
+                            <input class="form-control" type="text" name="bodypart"  id="bodypart" readonly>
+                        </div>  
+                        <div class="mb-3">
+                            <label class="form-label" for="duration">Duration in minutes</label>
+                            <input class="form-control" type="text" name=" duraction" placeholder="15">
+                        </div>   
+                        <div class="mb-3">
+                            <label class="form-label" for="weight">Weight</label>
+                            <input class="form-control" type="text" name="date" placeholder="30">
+                         </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="reps">Reps</label>
+                            <input class="form-control" type="text" name="date" placeholder="3">
+                        </div>
 
-                        <label for="">Equipment</label>
-                        <input class="form-control" type="text" name="equipment"  id="equipment" readonly>
-
-                        <label for="">Instructions</label>
-                        <textarea rows="6" class="form-control" type="text" name="instructions"  id="instructions" readonly></textarea>
-
-                        <label for="">Duration </label>
-                        <input class="form-control" type="text" name=" duraction">
-
-                        <label for="">Date</label>
-                        <input class="form-control" type="date" name="date">
-                    
                 </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
