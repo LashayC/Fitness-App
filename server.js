@@ -13,6 +13,7 @@ const { Goals } = require("./models/goals")
 const url = process.env.MONGO_CONNECTION;
 const fetch = require('node-fetch')
 const ObjectId = require('mongodb').ObjectId
+const dayjs = require('dayjs')
 
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -169,7 +170,7 @@ app.get("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
 app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   let objectId = ObjectId(req.user._id)
-  let date = new Date(req.body.date).toLocaleDateString() + 1;
+  let date = dayjs(req.body.date).format('MM-DD-YYYY')
   try{
       let calories = await calculateCalories(req);
       const newExercises = new Exercises({
@@ -190,7 +191,6 @@ app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
     await newExercises.save()
 
     console.log("exercise saved")
-    res.response("workout saved to profile")
     res.redirect("/workouts")
   } catch (error) {
     console.error(error)
@@ -210,8 +210,8 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 app.post("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   let objectId = ObjectId(req.user._id)
 
-  let startDate = new Date(req.body.startDate).toLocaleDateString() + 1
-  let endDate = new Date(req.body.endDate).toLocaleDateString() + 1
+  let startDate = dayjs(req.body.startDate).format('MM-DD-YYYY')
+  let endDate = dayjs(req.body.startDate).format('MM-DD-YYYY')
 
   const newGoals = new Goals({
     userId: objectId,
@@ -233,8 +233,8 @@ app.put("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) =
     let objectId = ObjectId(req.body._id)
 
     console.log('The goal PUT', req.body)
-    let startDate = new Date(req.body.startDate).toLocaleDateString() + 1
-    let endDate = new Date(req.body.endDate).toLocaleDateString() + 1
+    let startDate = dayjs(req.body.startDate).format('MM-DD-YYYY')
+    let endDate = dayjs(req.body.endDate).format('MM-DD-YYYY')
 
     await Goals.findOneAndUpdate({ _id: objectId }, {
       goalName: req.body.goalName,
