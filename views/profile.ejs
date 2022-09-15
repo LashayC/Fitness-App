@@ -12,10 +12,10 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/profile.css">
-      <!--favicon-->
-     <link rel="icon" type="image/x-icon" href="/images/logo_plain.png">
-     <!--Icons-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!--favicon-->
+    <link rel="icon" type="image/x-icon" href="/images/logo_plain.png">
+    <!--Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 </head>
 
@@ -100,7 +100,8 @@
                                 <ul class="list-group list-group-horizontal">
                                     <li class="list-group-item ">First Name</li>
                                     <li class="list-group-item flex-fill">
-                                        <%=req.user.firstName %></li>
+                                        <%=req.user.firstName %>
+                                    </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
                                     <li class="list-group-item ">Last Name</li>
@@ -115,7 +116,7 @@
                                     </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Email   </li>
+                                    <li class="list-group-item ">Email Addr </li>
                                     <li class="list-group-item flex-fill">
                                         <%=req.user.email %>
                                     </li>
@@ -126,6 +127,58 @@
                                 </ul>
                             </div>
                         </div>
+
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#accountModal">
+                            Edit
+                        </button>
+                        <!-- Modal -->
+                
+                            <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Goals</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="mt-3 p-2 rounded mt-1 p-2 rounded bg-light bg-gradient">
+                                                <h1 class="h3 mb-3 fw-normal">Enter Goals</h1>
+
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="firstName"
+                                                        placeholder="Goal Name" name="firstName">
+                                                    <label for="firstName">First Name</label>
+                                                </div>
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="lastName"
+                                                        placeholder="Current Weight" name="lastName">
+                                                    <label for="lastName">Last Name</label>
+                                                </div>
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="email"
+                                                        placeholder="goalWeight" name="email">
+                                                    <label for="email">Email Address</label>
+                                                </div>                                          
+                                                <br>
+                                                <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
+                                                    onclick="editButton('<%= req.user._id%>')">Submit <%= req.user._id%></button>
+                                                <br>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+
 
                     </div>
                     <!-- Goals Tab -->
@@ -173,93 +226,109 @@
                             <!-- Goals Render -->
                             <div class="col-md-6 border">
                                 <!-- <div class="row mt-1 row-cols-md-2 g-4"> -->
-                                    <div class="row mt-1 row-cols-md-2 g-4" id="goalsDiv">
-                                        <%for(var i = 0; i < goalsDB.length; i++){ %>
-                                    <div>
-                                        <div class="col favorite <%= goalsDB[i].favorite%>" >
-                                            <div class="card h-100 ">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%></h5>
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Current Weight: <%= goalsDB[i].currentWeight%></li>
-                                                    <li class="list-group-item">Goal Weight: <%= goalsDB[i].goalWeight%></li>
-                                                    <li class="list-group-item">Start Date: <%= goalsDB[i].startDate%></li>
-                                                    <li class="list-group-item">End Date: <%= goalsDB[i].endDate%></li>
-                                                </ul>
+                                <div class="row mt-1 row-cols-md-2 g-4" id="goalsDiv">
+                                    <%for(var i=0; i < goalsDB.length; i++){ %>
+                                        <div>
+                                            <div class="col favorite <%= goalsDB[i].favorite%>">
+                                                <div class="card h-100 ">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%>
+                                                        </h5>
+                                                    </div>
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item">Current Weight: <%=
+                                                                goalsDB[i].currentWeight%>
+                                                        </li>
+                                                        <li class="list-group-item">Goal Weight: <%=
+                                                                goalsDB[i].goalWeight%>
+                                                        </li>
+                                                        <li class="list-group-item">Start Date: <%=
+                                                                goalsDB[i].startDate%>
+                                                        </li>
+                                                        <li class="list-group-item">End Date: <%= goalsDB[i].endDate%>
+                                                        </li>
+                                                    </ul>
 
-                                                <div class="card-footer">
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                                                        Edit
-                                                    </button>                                                
-                                                    <button href="#" class="btn btn-warning" onclick="deleteBtn('<%= goalsDB[i]._id %>')">Delete</button>
-                                                    <button href="#" class="btn btn-success" id="favoriteBtn">Favorite</button>
+                                                    <div class="card-footer">
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Edit
+                                                        </button>
+                                                        <button href="#" class="btn btn-warning"
+                                                            onclick="deleteBtn('<%= goalsDB[i]._id %>')">Delete</button>
+                                                        <button href="#" class="btn btn-success"
+                                                            id="favoriteBtn">Favorite</button>
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    
-                                    <%}%>
+                                        <%}%>
                                 </div>
-                                
-                            
 
-                            <!-- Goals Update Form Modal -->
-                           
-                            <!-- Modal -->
-                            <%for(var i = 0; i < goalsDB.length; i++){ %>
 
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Goals</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                        <div class="modal-body">
-                                            <form class="mt-3 p-2 rounded mt-1 p-2 rounded bg-light bg-gradient">
-                                                <h1 class="h3 mb-3 fw-normal">Enter Goals</h1>
-            
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="newGoalName"
-                                                        placeholder="Goal Name" name="goalName">
-                                                    <label for="goalName">Goal Name</label>
+
+                                <!-- Goals Update Form Modal -->
+
+                                <!-- Modal -->
+                                <%for(var i=0; i < goalsDB.length; i++){ %>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Goals</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="newCurrentWeight"
-                                                        placeholder="Current Weight" name="currentWeight">
-                                                    <label for="currentWeight">Current Weight</label>
+                                                <div class="modal-body">
+                                                    <form
+                                                        class="mt-3 p-2 rounded mt-1 p-2 rounded bg-light bg-gradient">
+                                                        <h1 class="h3 mb-3 fw-normal">Enter Goals</h1>
+
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="newGoalName"
+                                                                placeholder="Goal Name" name="goalName">
+                                                            <label for="goalName">Goal Name</label>
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control"
+                                                                id="newCurrentWeight" placeholder="Current Weight"
+                                                                name="currentWeight">
+                                                            <label for="currentWeight">Current Weight</label>
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="newGoalWeight"
+                                                                placeholder="goalWeight" name="goalWeight">
+                                                            <label for="goalWeight">Goal Weight</label>
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <input type="date" class="form-control" id="newStartDate"
+                                                                placeholder="startDate" name="startDate">
+                                                            <label for="startDate">Start Date</label>
+                                                        </div>
+                                                        <div class="form-floating">
+                                                            <input type="date" class="form-control" id="newEndDate"
+                                                                placeholder="endDate" name="endDate">
+                                                            <label for="endDate">Goal End Date</label>
+                                                        </div>
+                                                        <br>
+                                                        <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
+                                                            onclick="editButton('<%= goalsDB[i]._id%>')">Submit</button>
+                                                        <br>
+                                                    </form>
                                                 </div>
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="newGoalWeight"
-                                                        placeholder="goalWeight" name="goalWeight">
-                                                    <label for="goalWeight">Goal Weight</label>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
                                                 </div>
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" id="newStartDate" placeholder="startDate"
-                                                        name="startDate">
-                                                    <label for="startDate">Start Date</label>
-                                                </div>
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" id="newEndDate" placeholder="endDate"
-                                                        name="endDate">
-                                                    <label for="endDate">Goal End Date</label>
-                                                </div>
-                                                <br>
-                                                <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
-                                                     onclick="editButton('<%= goalsDB[i]._id%>')">Submit</button>
-                                                <br>
-                                             </form>
+                                            </div>
                                         </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     </div>
-                                </div>
-                                </div>
+                                    <% }%>
                             </div>
-                            <% }%>
-                        </div>
 
                         </div>
 
@@ -268,7 +337,7 @@
                     <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
 
-                        <div  class="row mt-2 overflow-auto goalTab">
+                        <div class="row mt-2 overflow-auto goalTab">
                             <div class="col-md-6 border">
                                 <h2 class="text-center mb-5">Current Workouts</h2>
                                 <div class="row row-cols-2 g-4">
@@ -278,16 +347,25 @@
                                             <div class="card h-100 <%= exerciseDB[i].completed %>">
                                                 <img src="<%= exerciseDB[i].image %>" class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Workout Name: <%= exerciseDB[i].name %></h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Date: <%= exerciseDB[i].date %></h6>
-            
+                                                    <h5 class="card-title">Workout Name: <%= exerciseDB[i].name %>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Date: <%=
+                                                            exerciseDB[i].date %>
+                                                    </h6>
+
                                                 </div>
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Duration: <%= exerciseDB[i].duration %></li>
-                                                    <li class="list-group-item">Weight: <%= exerciseDB[i].liftWeight %></li>
-                                                    <li class="list-group-item">Reps: <%= exerciseDB[i].reps %></li>
-                                                    <li class="list-group-item">Body-Part: <%= exerciseDB[i].bodypart %></li>
-                                                    <li class="list-group-item">Equipment: <%= exerciseDB[i].equipment %></li>
+                                                    <li class="list-group-item">Duration: <%= exerciseDB[i].duration %>
+                                                    </li>
+                                                    <li class="list-group-item">Weight: <%= exerciseDB[i].liftWeight %>
+                                                    </li>
+                                                    <li class="list-group-item">Reps: <%= exerciseDB[i].reps %>
+                                                    </li>
+                                                    <li class="list-group-item">Body-Part: <%= exerciseDB[i].bodypart %>
+                                                    </li>
+                                                    <li class="list-group-item">Equipment: <%= exerciseDB[i].equipment
+                                                            %>
+                                                    </li>
                                                 </ul>
                                                 <div class="card-footer">
                                                     
@@ -309,16 +387,25 @@
                                             <div class="card h-100 <%= exerciseDB[i].completed %>">
                                                 <img src="<%= exerciseDB[i].image %>" class="card-img-top" alt="...">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Workout Name: <%= exerciseDB[i].name %></h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Date: <%= exerciseDB[i].date %></h6>
-            
+                                                    <h5 class="card-title">Workout Name: <%= exerciseDB[i].name %>
+                                                    </h5>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Date: <%=
+                                                            exerciseDB[i].date %>
+                                                    </h6>
+
                                                 </div>
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">Duration: <%= exerciseDB[i].duration %></li>
-                                                    <li class="list-group-item">Weight: <%= exerciseDB[i].liftWeight %></li>
-                                                    <li class="list-group-item">Reps: <%= exerciseDB[i].reps %></li>
-                                                    <li class="list-group-item">Body-Part: <%= exerciseDB[i].bodypart %></li>
-                                                    <li class="list-group-item">Equipment: <%= exerciseDB[i].equipment %></li>
+                                                    <li class="list-group-item">Duration: <%= exerciseDB[i].duration %>
+                                                    </li>
+                                                    <li class="list-group-item">Weight: <%= exerciseDB[i].liftWeight %>
+                                                    </li>
+                                                    <li class="list-group-item">Reps: <%= exerciseDB[i].reps %>
+                                                    </li>
+                                                    <li class="list-group-item">Body-Part: <%= exerciseDB[i].bodypart %>
+                                                    </li>
+                                                    <li class="list-group-item">Equipment: <%= exerciseDB[i].equipment
+                                                            %>
+                                                    </li>
                                                 </ul>
                                                 <div class="card-footer">
                                                     
@@ -352,6 +439,7 @@
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
         </script>
     <script src="/main.js"></script>
+    <script src="/profile.js"></script>
 </body>
 
 </html>
