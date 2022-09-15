@@ -107,7 +107,7 @@ app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     let caloriesSum = 0;
     const exercises = await Exercises.find({ userId: req.user._id })
     let goals = await Goals.find({ userId: req.user._id });;
-    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { 'created_at': -1 } });
+    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { 'created_at': 1 } });
 
     if (goals.length > 0 && exercises.length > 0) {
 
