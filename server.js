@@ -190,7 +190,6 @@ app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
     await newExercises.save()
 
     console.log("exercise saved")
-    res.response("workout saved to profile")
     res.redirect("/workouts")
   } catch (error) {
     console.error(error)
