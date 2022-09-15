@@ -170,21 +170,22 @@ app.get("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   let objectId = ObjectId(req.user._id)
   let date = new Date(req.body.date).toLocaleDateString() + 1;
-  try {
-    let calories = await calculateCalories(req);
-    const newExercises = new Exercises({
-      userId: objectId,
-      date: date,
-      image: req.body.image,
-      name: req.body.name,
-      equipment: req.body.equipment,
-      bodypart: req.body.bodypart,
-      duration: req.body.duration,
-      liftWeight: req.body.liftWeight,
-      reps: req.body.reps,
-      intensity: req.body.intensity,
-      calories: calories
-    })
+  try{
+      let calories = await calculateCalories(req);
+      const newExercises = new Exercises({
+          userId: objectId,
+          date: date,
+          image: req.body.image,
+          name: req.body.name,
+          equipment: req.body.equipment,
+          bodypart: req.body.bodypart,
+          duration: req.body.duration,
+          liftWeight: req.body.liftWeight,
+          reps: req.body.reps,
+          intensity: req.body.intensity,
+          calories: calories,
+          completed: false
+      })
 
     await newExercises.save()
 
@@ -269,6 +270,36 @@ app.delete("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res
   )
 
   res.json("deleted")
+})
+
+app.put("/profileExerciseIncomplete",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    let objectId = ObjectId(req.body._id)
+  
+    await Exercises.findOneAndUpdate({_id: objectId},{
+      completed: req.body.completed
+    })
+    res.json("Updated")
+    res.redirect("/profile")
+    console.log("complete request" + req.body)
+  } catch (error) {
+   console.log('Error:', error)
+  }
+})
+
+app.put("/profileExerciseComplete",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    let objectId = ObjectId(req.body._id)
+  
+    await Exercises.findOneAndUpdate({_id: objectId},{
+      completed: req.body.completed
+    })
+    res.json("Updated")
+    res.redirect("/profile")
+    console.log("complete request" + req.body)
+  } catch (error) {
+   console.log('Error:', error)
+  }
 })
 
 
