@@ -116,7 +116,7 @@ app.get("/logout", function (req, res, next) {
 
 // end of passport.js == 
 
-// Routes for Workout ===============
+// ROUTES FOR WORKOUT ===========================================
 app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render('workout.ejs', { muscles: undefined });
 });
@@ -168,7 +168,7 @@ app.post("/selection", async (req,res) => {
 })
 
 
-// Routes for Profile ===============
+// ROUTES FOR PROFILE ================================================
 app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async(req, res) => {
 
   const exercises = await Exercises.find({userId: req.user._id})
@@ -189,7 +189,8 @@ app.post("/profileGoals", async(req,res) => {
     currentWeight: req.body.currentWeight,
     goalWeight: req.body.goalWeight,
     startDate: startDate,
-    endDate: endDate
+    endDate: endDate,
+    favorite: false
   })
 
   await newGoals.save()

@@ -176,7 +176,7 @@
                                     <div class="row mt-1 row-cols-md-2 g-4" id="goalsDiv">
                                         <%for(var i = 0; i < goalsDB.length; i++){ %>
                                     <div>
-                                        <div class="col favorite" >
+                                        <div class="col favorite <%= goalsDB[i].favorite%>" >
                                             <div class="card h-100 ">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%></h5>

@@ -117,17 +117,37 @@ let goalsDiv = document.getElementById('goalsDiv')
 
 goalsDiv.addEventListener('click', (e) => {
     if(e.target.id === 'favoriteBtn'){
-        let goalCardFav = e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1]
+        // let goalCardFav = e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1]
         
-        if(goalCardFav.classList.contains('favorite')){
-            goalCardFav.classList.remove('favorite')
+        // if(goalCardFav.classList.contains('favorite')){
+        //     goalCardFav.classList.remove('favorite')
+        // }else{
+        //     goalCardFav.classList.add('favorite')
+
+        // }
+        
+        // console.log('fav div classlist bool',e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].classList)
+
+        if(goalCardFav.classList.contains('true')){
+            //fetch sent to PUT false
         }else{
-            goalCardFav.classList.add('favorite')
-
+            //fetch sent to PUT true
         }
-        
-        console.log('fav div classlist bool',e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].classList)
 
+        fetch("/profileGoalsFavorite", {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({})
+        })
+        .then(res => {
+            if(res.ok){return res.json()}
+        })
+        .then(data => {
+            window.location.reload(true)
+        })
 
+// When user clicks favorite
+//Gets true or false value from db
+//Then switches value based on 
     }
 })
