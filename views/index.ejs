@@ -69,26 +69,32 @@
           <header class="p-2 bg-dark text-white mb-2 mt-2">
             <h1 class="text-center">My Dashboard</h1>
          </header>
+          <% if(Object.keys(goalsDB).length === 0){ %>
+            <div class="alert alert-danger">Please enter goals in <a href="/profile">profile</a> to see data</div>
+          <%  } %>
+          <% if(!goalsDB.totalEstimatedCalories){ %>
+            <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
+          <%  } %>
           <div class="col-md-3 rounded border p-2 ">
             <h6>Current Weight</h6>
-            <h1><%= goalsDB.currentWeight%> <span>lbs</span></h1>
+            <h1><%= goalsDB.currentWeight %><span>lbs</span></h1>
           </div>
           <div class="col-md-3 rounded border  p-2 ">
             <h6>Total Workouts Completed</h6>
-            <h1><%= goalsDB.completedExercises%></h1>
+            <h1><%= goalsDB.completedExercises  %></h1>
           </div>
           <div class="col-md-3 rounded border  p-3 ">
             <h6>Goal Weight</h6>
-            <h1><%= goalsDB.goalWeight%> <span>lbs</span></h1>
+            <h1><%= goalsDB.goalWeight  %> <span>lbs</span></h1>
           </div>
           <div class="col-md-3 rounded border  p-3 ">
             <h6>Total Estimated Calories Burned</h6>
             <h1><%= goalsDB.totalEstimatedCalories %></h1>
           </div>
         
-          
+          <!-- CHART DATA-->
         <div class=" col border rounded p-3">
-            <h2>Chart</h2>
+            <h2>Weight Loss Progress</h2>
             <div style="width: 1100px; height:auto; margin:auto">
               <canvas id="myChart"></canvas>
             </div>
@@ -99,7 +105,30 @@
 
     <!--CHART JS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
-    <script src="/main.js"></script>
+    <script>
+      const data = {
+            labels: ('<%= labels %>').split(","),
+          
+            datasets: [{
+                label: 'Weight',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [<%= entries %>],
+            }]
+        };
+      
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+      
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+     
+    </script>
   </body>
 
 </html>
