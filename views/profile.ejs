@@ -173,30 +173,33 @@
                             <!-- Goals Render -->
                             <div class="col-md-6 border">
                                 <!-- <div class="row mt-1 row-cols-md-2 g-4"> -->
-                                    <div class="row mt-1 row-cols-md-2 g-4">
+                                    <div class="row mt-1 row-cols-md-2 g-4" id="goalsDiv">
                                         <%for(var i = 0; i < goalsDB.length; i++){ %>
+                                    <div>
+                                        <div class="col favorite <%= goalsDB[i].favorite%>" >
+                                            <div class="card h-100 ">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%></h5>
+                                                </div>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">Current Weight: <%= goalsDB[i].currentWeight%></li>
+                                                    <li class="list-group-item">Goal Weight: <%= goalsDB[i].goalWeight%></li>
+                                                    <li class="list-group-item">Start Date: <%= goalsDB[i].startDate%></li>
+                                                    <li class="list-group-item">End Date: <%= goalsDB[i].endDate%></li>
+                                                </ul>
 
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%></h5>
-                                            </div>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Current Weight: <%= goalsDB[i].currentWeight%></li>
-                                                <li class="list-group-item">Goal Weight: <%= goalsDB[i].goalWeight%></li>
-                                                <li class="list-group-item">Start Date: <%= goalsDB[i].startDate%></li>
-                                                <li class="list-group-item">End Date: <%= goalsDB[i].endDate%></li>
-                                            </ul>
+                                                <div class="card-footer">
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                                                        Edit
+                                                    </button>                                                
+                                                    <button href="#" class="btn btn-warning" onclick="deleteBtn('<%= goalsDB[i]._id %>')">Delete</button>
+                                                    <button href="#" class="btn btn-success" id="favoriteBtn">Favorite</button>
 
-                                            <div class="card-footer">
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                                                    Edit
-                                                 </button>                                                
-                                                 <button href="#" class="btn btn-warning" onclick="deleteBtn('<%= goalsDB[i]._id %>')">Delete</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>    
                                     <%}%>
                                 </div>
                                 

@@ -1,32 +1,32 @@
-const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-];
+// const labels = [
+//     'January',
+//     'February',
+//     'March',
+//     'April',
+//     'May',
+//     'June',
+// ];
 
-const data = {
-    labels: labels,
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30],
-    }]
-};
+// const data = {
+//     labels: labels,
+//     datasets: [{
+//         label: 'My First dataset',
+//         backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: 'rgb(255, 99, 132)',
+//         data: [0, 10, 5, 2, 20, 30],
+//     }]
+// };
 
-const config = {
-    type: 'line',
-    data: data,
-    options: {}
-};
+// const config = {
+//     type: 'line',
+//     data: data,
+//     options: {}
+// };
 
-const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-);
+// const myChart = new Chart(
+//     document.getElementById('myChart'),
+//     config
+// );
 
 
 
@@ -100,3 +100,54 @@ function deleteBtn(id){
         window.location.reload(true)
     })
 }
+
+let goalsDiv = document.getElementById('goalsDiv')
+
+// function favoriteBtn(id){
+//    let favGoalCard = document.querySelector('#favoriteChecker')
+//     console.log('')
+//    if(!favGoalCard.classList.contains('favorite')){
+//     favGoalCard.classList.add('favorite')
+//    }else{
+//     favGoalCard.classList.remove('favorite')
+//    }
+
+// }
+
+
+goalsDiv.addEventListener('click', (e) => {
+    if(e.target.id === 'favoriteBtn'){
+        // let goalCardFav = e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1]
+        
+        // if(goalCardFav.classList.contains('favorite')){
+        //     goalCardFav.classList.remove('favorite')
+        // }else{
+        //     goalCardFav.classList.add('favorite')
+
+        // }
+        
+        // console.log('fav div classlist bool',e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].classList)
+
+        if(goalCardFav.classList.contains('true')){
+            //fetch sent to PUT false
+        }else{
+            //fetch sent to PUT true
+        }
+
+        fetch("/profileGoalsFavorite", {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({})
+        })
+        .then(res => {
+            if(res.ok){return res.json()}
+        })
+        .then(data => {
+            window.location.reload(true)
+        })
+
+// When user clicks favorite
+//Gets true or false value from db
+//Then switches value based on 
+    }
+})
