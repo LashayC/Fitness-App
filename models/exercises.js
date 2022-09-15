@@ -13,6 +13,7 @@ const exerciseSchema = new Schema({
     reps: Number,
     intensity: String,
     calories: Number,
+    completed: Boolean
 })
 
 const Exercises = mongoose.model("Exercises", exerciseSchema)

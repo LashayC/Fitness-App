@@ -174,7 +174,8 @@ app.post("/selection",connectEnsureLogin.ensureLoggedIn(), async (req,res) => {
           liftWeight: req.body.liftWeight,
           reps: req.body.reps,
           intensity: req.body.intensity,
-          calories: calories
+          calories: calories,
+          completed: false
       })
 
       await newExercises.save()
@@ -260,6 +261,36 @@ app.delete("/profileGoals",connectEnsureLogin.ensureLoggedIn(), async (req,res) 
   )
 
   res.json("deleted")
+})
+
+app.put("/profileExerciseIncomplete",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    let objectId = ObjectId(req.body._id)
+  
+    await Exercises.findOneAndUpdate({_id: objectId},{
+      completed: req.body.completed
+    })
+    res.json("Updated")
+    res.redirect("/profile")
+    console.log("complete request" + req.body)
+  } catch (error) {
+   console.log('Error:', error)
+  }
+})
+
+app.put("/profileExerciseComplete",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    let objectId = ObjectId(req.body._id)
+  
+    await Exercises.findOneAndUpdate({_id: objectId},{
+      completed: req.body.completed
+    })
+    res.json("Updated")
+    res.redirect("/profile")
+    console.log("complete request" + req.body)
+  } catch (error) {
+   console.log('Error:', error)
+  }
 })
 
 
