@@ -58,7 +58,7 @@
                     <hr>
                     <div>
                         <a href="/logout" class="d-flex align-items-center text-white text-decoration-none "
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                             aria-expanded="false">
                             <strong>Sign Out</strong>
                         </a>
                     </div>
@@ -95,35 +95,31 @@
 
                         <div class="card mt-1">
                             <h5 class="card-header">Profile</h5>
-                            <div class="card-body">
+                            <div class="card-body" id="accountInfo">
                                 <!-- <h5 class="card-title">Special title treatment</h5> -->
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">First Name</li>
-                                    <li class="list-group-item flex-fill">
-                                        <%=req.user.firstName %>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Last Name</li>
-                                    <li class="list-group-item flex-fill">
-                                        <%=req.user.lastName %>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">User name</li>
+                                    <li class="list-group-item ">User name: </li>
                                     <li class="list-group-item flex-fill">
                                         <%=req.user.username %>
                                     </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Email Addr </li>
+                                    <li class="list-group-item ">First Name: </li>
                                     <li class="list-group-item flex-fill">
-                                        <%=req.user.email %>
+                                        <%=req.user.firstName %>
                                     </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Password</li>
-                                    <li class="list-group-item flex-fill">A second item</li>
+                                    <li class="list-group-item ">Last Name: </li>
+                                    <li class="list-group-item flex-fill">
+                                        <%=req.user.lastName %>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item ">Email Addr: </li>
+                                    <li class="list-group-item flex-fill">
+                                        <%=req.user.email %>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -134,7 +130,7 @@
                             data-bs-target="#accountModal">
                             Edit
                         </button>
-                        <!-- Modal -->
+                        <!-- Form Update Modal -->
                 
                             <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
@@ -147,26 +143,33 @@
                                         </div>
                                         <div class="modal-body">
                                             <form class="mt-3 p-2 rounded mt-1 p-2 rounded bg-light bg-gradient">
-                                                <h1 class="h3 mb-3 fw-normal">Enter Goals</h1>
-
+                                                <h1 class="h3 mb-3 fw-normal">Edit Info</h1>
+                                                <h6 class="card-subtitle mb-2 text-muted text-center">Any changes will reflect after sign-out. 
+                                                    <br> <span class="text-danger text-center">Please use updated username on next sign-in.</span> </br>
+                                            </h6>
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="newUserName"
+                                                        placeholder="User Name" name="newUserName">
+                                                    <label for="newUserName">User Name</label>
+                                                </div>
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="firstName"
-                                                        placeholder="Goal Name" name="firstName">
+                                                        placeholder="First Name" name="newFirstName">
                                                     <label for="firstName">First Name</label>
                                                 </div>
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="lastName"
-                                                        placeholder="Current Weight" name="lastName">
+                                                        placeholder="Last Name" name="newLastName">
                                                     <label for="lastName">Last Name</label>
                                                 </div>
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="email"
-                                                        placeholder="goalWeight" name="email">
+                                                        placeholder="mail Address" name="newEmail">
                                                     <label for="email">Email Address</label>
                                                 </div>                                          
                                                 <br>
                                                 <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
-                                                    onclick="editButton('<%= req.user._id%>')">Submit <%= req.user._id%></button>
+                                                    onclick="editAccountInfo('<%= req.user._id%>', '<%= req.user.firstName%>', '<%= req.user.lastName%>', '<%= req.user.email%>', '<%=req.user.username %>')">Submit</button>
                                                 <br>
                                             </form>
                                         </div>
@@ -192,28 +195,28 @@
 
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="floatingInput"
-                                            placeholder="Goal Name" name="goalName">
+                                            placeholder="Goal Name" name="goalName" required>
                                         <label for="goalName">Goal Name</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="floatingInput"
-                                            placeholder="Current Weight" name="currentWeight">
+                                            placeholder="Current Weight" name="currentWeight" required>
                                         <label for="floatingInput">Current Weight</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="floatingPassword"
-                                            placeholder="goalWeight" name="goalWeight">
+                                            placeholder="goalWeight" name="goalWeight" required>
                                         <label for="goalWeight">Goal Weight</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="date" class="form-control" id="startDate" placeholder="startDate"
                                             name="startDate">
-                                        <label for="startDate">Start Date</label>
+                                        <label for="startDate" required>Start Date</label>
                                     </div>
                                     <div class="form-floating">
                                         <input type="date" class="form-control" id="endDate" placeholder="endDate"
                                             name="endDate">
-                                        <label for="endDate">Goal End Date</label>
+                                        <label for="endDate" required>Goal End Date</label>
                                     </div>
                                     <br>
                                     <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
@@ -229,7 +232,7 @@
                                 <div class="row mt-1 row-cols-md-2 g-4" id="goalsDiv">
                                     <%for(var i=0; i < goalsDB.length; i++){ %>
                                         <div>
-                                            <div class="col favorite <%= goalsDB[i].favorite%>">
+                                            <div class="col">
                                                 <div class="card h-100 ">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Goal Name: <%= goalsDB[i].goalName%>
@@ -257,8 +260,7 @@
                                                         </button>
                                                         <button href="#" class="btn btn-warning"
                                                             onclick="deleteBtn('<%= goalsDB[i]._id %>')">Delete</button>
-                                                        <button href="#" class="btn btn-success"
-                                                            id="favoriteBtn">Favorite</button>
+
 
                                                     </div>
                                                 </div>
@@ -291,28 +293,28 @@
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control" id="newGoalName"
                                                                 placeholder="Goal Name" name="goalName">
-                                                            <label for="goalName">Goal Name</label>
+                                                            <label for="goalName" required>Goal Name</label>
                                                         </div>
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control"
                                                                 id="newCurrentWeight" placeholder="Current Weight"
                                                                 name="currentWeight">
-                                                            <label for="currentWeight">Current Weight</label>
+                                                            <label for="currentWeight" required>Current Weight</label>
                                                         </div>
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control" id="newGoalWeight"
                                                                 placeholder="goalWeight" name="goalWeight">
-                                                            <label for="goalWeight">Goal Weight</label>
+                                                            <label for="goalWeight" required>Goal Weight</label>
                                                         </div>
                                                         <div class="form-floating">
                                                             <input type="date" class="form-control" id="newStartDate"
                                                                 placeholder="startDate" name="startDate">
-                                                            <label for="startDate">Start Date</label>
+                                                            <label for="startDate" required>Start Date</label>
                                                         </div>
                                                         <div class="form-floating">
                                                             <input type="date" class="form-control" id="newEndDate"
                                                                 placeholder="endDate" name="endDate">
-                                                            <label for="endDate">Goal End Date</label>
+                                                            <label for="endDate" required>Goal End Date</label>
                                                         </div>
                                                         <br>
                                                         <input type="text" id="itemID" style="display:none">
@@ -443,7 +445,7 @@
         <!--JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
     <script src="/main.js"></script>
-    <!--<script src="/profile.js"></script>-->
+    <script src="/profile.js"></script>
 </body>
 
 </html>
