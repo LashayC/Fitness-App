@@ -38,22 +38,22 @@
             <li>
               <a href="/workouts" class="nav-link text-white">
 
-                  <i class="bi bi-journal-bookmark me-2 pe-none"></i>
-                  My Workouts
+                <i class="bi bi-journal-bookmark me-2 pe-none"></i>
+                My Workouts
               </a>
-          </li>
-          <li>
+            </li>
+            <li>
               <a href="/profile" class="nav-link text-white">
-                  <i class="bi bi-person-circle me-2 pe-none"></i>
-                  Profile
+                <i class="bi bi-person-circle me-2 pe-none"></i>
+                Profile
 
               </a>
-          </li>
+            </li>
           </ul>
           <hr>
           <div>
-            <a href="/logout" class="d-flex align-items-center text-white text-decoration-none " data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a href="/logout" class="d-flex align-items-center text-white text-decoration-none "
+              data-bs-toggle="dropdown" aria-expanded="false">
               <strong>Sign Out</strong>
             </a>
           </div>
@@ -62,73 +62,127 @@
     </div>
 
     <!-- MAIN PANEL-->
-    <div class="col-md-10" >
-        <div class="row justify-content-center p-4">
+    <div class="col-md-10">
+      <div class="row justify-content-center p-4">
 
-          <!--HEADER-->
-          <header class="p-2 bg-dark text-white mb-2 mt-2">
-            <h1 class="text-center">My Dashboard</h1>
-         </header>
-          <% if(Object.keys(goalsDB).length === 0){ %>
-            <div class="alert alert-danger">Please enter goals in <a href="/profile">profile</a> to see data</div>
-          <%  } %>
-          <% if(!goalsDB.totalEstimatedCalories){ %>
-            <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
-          <%  } %>
-          <div class="col-md-3 rounded border p-2 ">
-            <h6>Current Weight</h6>
-            <h1><%= goalsDB.currentWeight %><span>lbs</span></h1>
-          </div>
-          <div class="col-md-3 rounded border  p-2 ">
-            <h6>Total Workouts Completed</h6>
-            <h1><%= goalsDB.completedExercises  %></h1>
-          </div>
-          <div class="col-md-3 rounded border  p-3 ">
-            <h6>Goal Weight</h6>
-            <h1><%= goalsDB.goalWeight  %> <span>lbs</span></h1>
-          </div>
-          <div class="col-md-3 rounded border  p-3 ">
-            <h6>Total Estimated Calories Burned</h6>
-            <h1><%= goalsDB.totalEstimatedCalories %></h1>
-          </div>
-        
-          <!-- CHART DATA-->
-        <div class=" col border rounded p-3">
-            <h2>Weight Loss Progress</h2>
-            <div style="width: 1100px; height:auto; margin:auto">
-              <canvas id="myChart"></canvas>
-            </div>
-        </div>
+        <!--HEADER-->
+        <header class="p-2 bg-dark text-white mb-2 mt-2">
+          <h1 class="text-center">My Dashboard</h1>
+        </header>
+        <% if(Object.keys(goalsDB).length===0){ %>
+          <div class="alert alert-danger">Please enter goals in <a href="/profile">profile</a> to see data</div>
+          <% } %>
+            <% if(!goalsDB.totalEstimatedCalories){ %>
+              <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
+              <% } %>
+                <div class="col-md-3 rounded border p-2 ">
+                  <h6>Current Weight</h6>
+                  <h1>
+                    <%= goalsDB.currentWeight %><span>lbs</span>
+                  </h1>
+                </div>
+                <div class="col-md-3 rounded border  p-2 ">
+                  <h6>Total Workouts Completed</h6>
+                  <h1>
+                    <%= goalsDB.completedExercises %>
+                  </h1>
+                </div>
+                <div class="col-md-3 rounded border  p-3 ">
+                  <h6>Goal Weight</h6>
+                  <h1>
+                    <%= goalsDB.goalWeight %> <span>lbs</span>
+                  </h1>
+                </div>
+                <div class="col-md-3 rounded border  p-3 ">
+                  <h6>Total Estimated Calories Burned</h6>
+                  <h1>
+                    <%= goalsDB.totalEstimatedCalories %>
+                  </h1>
+                </div>
+
+                <!-- CHART DATA-->
+                <div class=" col border rounded p-3">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="border" >
+                        <h2>Weight Loss Progress</h2>
+                        <canvas id="myChart"></canvas>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="border">
+                        <h2>Goal Progress</h2>
+                        <canvas id="myBarChart"></canvas>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
       </div>
     </div>
   </div>
 
-    <!--CHART JS-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
-    <script>
-      const data = {
-            labels: ('<%= labels %>').split(","),
-          
-            datasets: [{
-                label: 'Weight',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [<%= entries %>],
-            }]
-        };
-      
-        const config = {
-            type: 'line',
-            data: data,
-            options: {}
-        };
-      
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-        );
-     
-    </script>
-  </body>
+  <!--CHART JS-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // LINE CHART DATA
+    const data = {
+      labels: ('<%= labels %>').split(","),
+
+      datasets: [{
+        label: 'Weight',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [<%= entries %>],
+      }]
+    };
+
+    const config = {
+      type: 'line',
+      data: data,
+      options: {}
+    };
+
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+    // BAR CHART
+    const barChartlabels = ["Current Weight"];
+    let percentage = <%= goalsDB.currentWeight %> /<%= goalsDB.goalWeight %> *100 ;
+
+    const barChartData = {
+      labels: barChartlabels,
+      datasets: [{
+        label: 'Goal Progress',
+        data: [percentage, 100],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgb(75, 192, 192)',
+        ],
+        borderWidth: 1
+      }]
+    };
+    const barChartConfig = {
+      type: 'bar',
+      data: barChartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+    const myBarChart = new Chart(
+      document.getElementById('myBarChart'),
+      barChartConfig
+    );
+
+  </script>
+</body>
 
 </html>
