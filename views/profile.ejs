@@ -95,35 +95,31 @@
 
                         <div class="card mt-1">
                             <h5 class="card-header">Profile</h5>
-                            <div class="card-body">
+                            <div class="card-body" id="accountInfo">
                                 <!-- <h5 class="card-title">Special title treatment</h5> -->
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">First Name</li>
-                                    <li class="list-group-item flex-fill">
-                                        <%=req.user.firstName %>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Last Name</li>
-                                    <li class="list-group-item flex-fill">
-                                        <%=req.user.lastName %>
-                                    </li>
-                                </ul>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">User name</li>
+                                    <li class="list-group-item ">User name: </li>
                                     <li class="list-group-item flex-fill">
                                         <%=req.user.username %>
                                     </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Email Addr </li>
+                                    <li class="list-group-item ">First Name: </li>
                                     <li class="list-group-item flex-fill">
-                                        <%=req.user.email %>
+                                        <%=req.user.firstName %>
                                     </li>
                                 </ul>
                                 <ul class="list-group list-group-horizontal">
-                                    <li class="list-group-item ">Password</li>
-                                    <li class="list-group-item flex-fill">A second item</li>
+                                    <li class="list-group-item ">Last Name: </li>
+                                    <li class="list-group-item flex-fill">
+                                        <%=req.user.lastName %>
+                                    </li>
+                                </ul>
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item ">Email Addr: </li>
+                                    <li class="list-group-item flex-fill">
+                                        <%=req.user.email %>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -147,26 +143,26 @@
                                         </div>
                                         <div class="modal-body">
                                             <form class="mt-3 p-2 rounded mt-1 p-2 rounded bg-light bg-gradient">
-                                                <h1 class="h3 mb-3 fw-normal">Enter Goals</h1>
+                                                <h1 class="h3 mb-3 fw-normal">Edit Info</h1>
 
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="firstName"
-                                                        placeholder="Goal Name" name="firstName">
+                                                        placeholder="Goal Name" name="newFirstName">
                                                     <label for="firstName">First Name</label>
                                                 </div>
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="lastName"
-                                                        placeholder="Current Weight" name="lastName">
+                                                        placeholder="Current Weight" name="newLastName">
                                                     <label for="lastName">Last Name</label>
                                                 </div>
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" id="email"
-                                                        placeholder="goalWeight" name="email">
+                                                        placeholder="goalWeight" name="newEmail">
                                                     <label for="email">Email Address</label>
                                                 </div>                                          
                                                 <br>
                                                 <button class="w-100 btn btn-lg btn-primary mb-2" type="submit"
-                                                    onclick="editButton('<%= req.user._id%>')">Submit <%= req.user._id%></button>
+                                                    onclick="editAccountInfo('<%= req.user._id%>', '<%= req.user.firstName%>', '<%= req.user.lastName%>', '<%= req.user.email%>')">Submit</button>
                                                 <br>
                                             </form>
                                         </div>

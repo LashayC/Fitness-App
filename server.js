@@ -302,6 +302,22 @@ app.put("/profileExerciseComplete",connectEnsureLogin.ensureLoggedIn(), async (r
   }
 })
 
+app.put("/profileAccountUpdate",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    let objectId = ObjectId(req.body._id)
+  
+    await User.findOneAndUpdate({_id: objectId},{
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    })
+    res.json("Updated")
+    res.redirect("/profile")
+    console.log("complete request" + req.body)
+  } catch (error) {
+   console.log('Error:', error)
+  }
+})
 
 // calculates Calories
 async function calculateCalories(req) {
