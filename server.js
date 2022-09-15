@@ -145,26 +145,30 @@ app.get("/selection", async (req, res) => {
 app.post("/selection", async (req,res) => {
   let objectId = ObjectId(req.user._id)
   let date = new Date(req.body.date).toLocaleDateString()
+  try{
+      let calories = await calculateCalories(req);
+      const newExercises = new Exercises({
+          userId: objectId,
+          date: date,
+          image: req.body.image,
+          name: req.body.name,
+          equipment: req.body.equipment,
+          bodypart: req.body.bodypart,
+          duration: req.body.duration,
+          liftWeight: req.body.liftWeight,
+          reps: req.body.reps,
+          intensity: req.body.intensity,
+          calories: calories
+      })
 
-  const newExercises = new Exercises({
-      userId: objectId,
-      date: date,
-      image: req.body.image,
-      name: req.body.name,
-      equipment: req.body.equipment,
-      bodypart: req.body.bodypart,
-      duration: req.body.duration,
-      liftWeight: req.body.liftWeight,
-      reps: req.body.reps,
-      intensity: req.body.intensity,
-      calories: "150"
-  })
+      await newExercises.save()
 
-  await newExercises.save()
+      console.log("exercise saved")
 
-  console.log("exercise saved")
-
-  res.redirect("/workouts")
+      res.redirect("/workouts")
+  }catch (error) {
+    console.error(error)
+  }
 })
 
 
@@ -223,11 +227,9 @@ app.put("/profileGoals", async (req,res) => {
 // delete profile exercises
 app.delete("/profileExercises", async (req,res) => {
   let objectId = new ObjectId(req.body._id)
-
   await Exercises.deleteOne(
     {_id: objectId}
   )
-
   res.json("deleted")
 })
 
@@ -245,22 +247,28 @@ app.delete("/profileGoals", async (req,res) => {
 
 
 // calculates Calories
-async function calculateCalories(workout){
-  console.log(workout)
+async function calculateCalories(req){
   const kg = 0.453592;
-  let calories;
-  let intensity = workout.body.intensity;
-  let duration = workout.body.duration/60;
+  let intensity = req.body.intensity;
+  let duration = req.body.duration/60;
+  try{
+    let goal = await Goals.findOne({userId: req.user._id}, {}, { sort: { 'created_at' : -1 } });
+    let currentWeight = goal.currentWeight;
 
-  if(intensity === 'light'){
-     calories = 3.5 * (currentWeight*kg) / duration;
-  }
-  if(intensity === 'moderate'){
-    calories = 5 * (currentWeight*kg) / duration;
-  }
-  if(intensity === 'vigorous'){
-    calories = 6 * (currentWeight*kg) / duration;
+    if(intensity === 'light'){
+      calories = 3.5 * (currentWeight*kg) / duration;
+   }
+   if(intensity === 'moderate'){
+     calories = 5 * (currentWeight*kg) / duration;
+   }
+   if(intensity === 'vigorous'){
+     calories = 6 * (currentWeight*kg) / duration;
+   }
+  }catch(error){
+    calories = 0;
+    console.error(error)
+  }finally{
+    return calories.toFixed(0);
   }
 
-  return 100;
 }
