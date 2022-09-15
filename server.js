@@ -98,10 +98,26 @@ app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   // and your session expires in ${req.session.cookie.maxAge}
   // milliseconds.<br><br>
   // <a href="/logout">Log Out</a><br><br><a href="/secret">Members Only</a>`);
+  try{
+  let data = {};
+  let caloriesSum = 0;
   const exercises = await Exercises.find({userId: req.user._id})
-  const goals = await Goals.find({userId: req.user._id})
+  let goal = await Goals.findOne({userId: req.user._id}, {}, { sort: { 'created_at' : -1 } });
 
-  res.render("index.ejs", {req: req, exerciseDB: exercises, goalsDB: goals})
+  
+  for (let i = 0; i < exercises.length; i++){
+      caloriesSum += exercises[i].calories;
+  }
+
+  data.currentWeight = goal.currentWeight;
+  data.goalWeight = goal.goalWeight;
+  data.totalEstimatedCalories = caloriesSum;
+  data.completedExercises = exercises.length;
+  console.log(data);
+  res.render("index.ejs", {req: req, goalsDB:data})
+  }catch(error){
+     console.error(error)
+  }
 });
 
 // Route to login
@@ -121,7 +137,7 @@ app.get("/workouts", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render('workout.ejs', { muscles: undefined });
 });
 
-app.get("/selection", async (req, res) => {
+app.get("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
   try {
     let muscle = req.query.muscle
@@ -142,7 +158,7 @@ app.get("/selection", async (req, res) => {
 
 })
 
-app.post("/selection", async (req,res) => {
+app.post("/selection",connectEnsureLogin.ensureLoggedIn(), async (req,res) => {
   let objectId = ObjectId(req.user._id)
   let date = new Date(req.body.date).toLocaleDateString()
   try{
@@ -181,7 +197,7 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async(req, res) => {
 
 });
 
-app.post("/profileGoals", async(req,res) => {
+app.post("/profileGoals", connectEnsureLogin.ensureLoggedIn(),async(req,res) => {
   let objectId = ObjectId(req.user._id)
 
   let startDate = new Date(req.body.startDate).toLocaleDateString()
@@ -201,7 +217,7 @@ app.post("/profileGoals", async(req,res) => {
   res.redirect("/profile")
 })
 
-app.put("/profileGoals", async (req,res) => {
+app.put("/profileGoals", connectEnsureLogin.ensureLoggedIn(),async (req,res) => {
  try {
    let objectId = ObjectId(req.body._id)
 
@@ -225,7 +241,7 @@ app.put("/profileGoals", async (req,res) => {
 
 
 // delete profile exercises
-app.delete("/profileExercises", async (req,res) => {
+app.delete("/profileExercises",connectEnsureLogin.ensureLoggedIn(), async (req,res) => {
   let objectId = new ObjectId(req.body._id)
   await Exercises.deleteOne(
     {_id: objectId}
@@ -235,7 +251,7 @@ app.delete("/profileExercises", async (req,res) => {
 
 
 // delete profile goals
-app.delete("/profileGoals", async (req,res) => {
+app.delete("/profileGoals",connectEnsureLogin.ensureLoggedIn(), async (req,res) => {
   let objectId = new ObjectId(req.body._id)
 
   await Goals.deleteOne(
@@ -255,7 +271,7 @@ async function calculateCalories(req){
     let goal = await Goals.findOne({userId: req.user._id}, {}, { sort: { 'created_at' : -1 } });
     let currentWeight = goal.currentWeight;
 
-    if(intensity === 'light'){
+   if(intensity === 'light'){
       calories = 3.5 * (currentWeight*kg) / duration;
    }
    if(intensity === 'moderate'){

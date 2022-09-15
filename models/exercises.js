@@ -8,11 +8,11 @@ const exerciseSchema = new Schema({
     name: String,
     equipment: String,
     bodypart: String,
-    duration: String,
-    liftWeight: String,
-    reps: String,
+    duration: Number,
+    liftWeight: Number,
+    reps: Number,
     intensity: String,
-    calories: String,
+    calories: Number,
 })
 
 const Exercises = mongoose.model("Exercises", exerciseSchema)
