@@ -151,3 +151,39 @@ goalsDiv.addEventListener('click', (e) => {
 //Then switches value based on 
     }
 })
+
+function completedWorkout(id, complete){
+
+    
+    if(complete == 'true'){
+        fetch("/profileExerciseIncomplete", {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                _id: id,
+                completed: false
+            })
+        })
+        .then(res => {
+            if(res.ok){return res.json()}
+        })
+        .then(data => {
+            window.location.reload(true)
+        })
+    }else if(complete == 'false'){
+        fetch("/profileExerciseComplete", {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+                _id: id,
+                completed: true
+            })
+        })
+        .then(res => {
+            if(res.ok){return res.json()}
+        })
+        .then(data => {
+            window.location.reload(true)
+        })
+    }
+}
