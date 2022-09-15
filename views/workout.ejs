@@ -58,7 +58,7 @@
                     <hr>
                     <div>
                         <a href="/logout" class="d-flex align-items-center text-white text-decoration-none "
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                            aria-expanded="false">
                             <strong>Sign Out</strong>
                         </a>
                     </div>
@@ -261,10 +261,6 @@
                     <form action="/selection" method="post">
                         <input id="exercise" class="text-center h2 w-100" name="name" readonly>
                         <img class="w-100" id="image" src="" >
-                        <div class="mb-3">
-                            <label class="form-label" for="date">Date</label>
-                            <input class="form-control" type="date" name="date" required>
-                        </div>    
                         <div class="mb-3"> 
                             <label class="form-label" for="equipment">Equipment</label>
                             <input class="form-control bg-light" type="text" name="equipment"  id="equipment" readonly>
@@ -274,12 +270,16 @@
                             <input class="form-control bg-light" type="text" name="bodypart"  id="bodypart" readonly>
                         </div>  
                         <div class="mb-3">
+                            <label class="form-label" for="date">Date</label>
+                            <input class="form-control" type="date" name="date" required>
+                        </div>    
+                        <div class="mb-3">
                             <label class="form-label" for="duration">Duration in minutes</label>
                             <input class="form-control" type="text" name="duration" placeholder="15" required>
                         </div> 
                         <div class="mb-3">
                             <label class="form-label" for="weight">Intensity Level</label>
-                            <select class="form-control" type="text" name="intensity">
+                            <select class="form-control" type="text" name="intensity" required>
                                 <option value="light">light</option>
                                 <option value="moderate">moderate</option>
                                 <option value="vigorous">vigorous</option>
@@ -287,11 +287,11 @@
                          </div>  
                         <div class="mb-3">
                             <label class="form-label" for="weight">Weight</label>
-                            <input class="form-control" type="text" name="liftWeight" placeholder="30">
+                            <input class="form-control" type="text" name="liftWeight" placeholder="30" required>
                          </div>
                         <div class="mb-3">
                             <label class="form-label" for="reps">Reps</label>
-                            <input class="form-control" type="text" name="reps" placeholder="3">
+                            <input class="form-control" type="text" name="reps" placeholder="3" required>
                         </div>
                         <div class="mb-3" style="display:none">
                             <input class="form-control" type="text" name="image" id="imageSrc">
