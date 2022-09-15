@@ -107,7 +107,7 @@ app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     let caloriesSum = 0;
     const exercises = await Exercises.find({ userId: req.user._id })
     let goals = await Goals.find({ userId: req.user._id });;
-    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { 'created_at': -1 } });
+    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { '_id': -1 } });
 
     if (goals.length > 0 && exercises.length > 0) {
 
@@ -219,8 +219,7 @@ app.post("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) 
     currentWeight: req.body.currentWeight,
     goalWeight: req.body.goalWeight,
     startDate: startDate,
-    endDate: endDate,
-    favorite: false
+    endDate: endDate
   })
 
   await newGoals.save()
@@ -230,21 +229,19 @@ app.post("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) 
 
 app.put("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
-    let objectId = ObjectId(req.body._id)
 
     console.log('The goal PUT', req.body)
     let startDate = dayjs(req.body.startDate).format('MM-DD-YYYY')
     let endDate = dayjs(req.body.endDate).format('MM-DD-YYYY')
 
-    await Goals.findOneAndUpdate({ _id: objectId }, {
+    await Goals.findOneAndUpdate({ _id: ObjectId(req.body._id)}, {
       goalName: req.body.goalName,
       currentWeight: req.body.currentWeight,
       goalWeight: req.body.goalWeight,
       startDate: startDate,
       endDate: endDate
     })
-    res.json("Updated")
-    res.redirect("/profile")
+    res.json("updated")
   } catch (error) {
     console.log('Error:', error)
   }
@@ -310,7 +307,7 @@ async function calculateCalories(req) {
   let duration = req.body.duration;
   let calories;
   try {
-    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { 'created_at': -1 } });
+    let goal = await Goals.findOne({ userId: req.user._id }, {}, { sort: { '_id': -1 } });
     let currentWeight = goal.currentWeight;
     //METS X 3.5 X BW (KG) / 200 = KCAL/MIN
     if (intensity === 'light') {

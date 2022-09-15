@@ -7,8 +7,7 @@ const goalsSchema = new Schema({
     currentWeight: Number,
     goalWeight: Number,
     startDate: String,
-    endDate: String,
-    favorite: Boolean
+    endDate: String
 })
 
 const Goals = mongoose.model("Goals", goalsSchema)

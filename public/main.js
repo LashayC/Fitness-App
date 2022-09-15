@@ -1,20 +1,21 @@
 
 // goals edit
-function editButton(id){
+function editButton(){
 
+    let id =document.querySelector('#itemID').value;
     let newGoalName = document.querySelector('#newGoalName').value
     let newCurrentWeight = document.querySelector('#newCurrentWeight').value
     let newGoalWeight = document.querySelector('#newGoalWeight').value
     let newStartDate = document.querySelector('#newStartDate').value
     let newEndDate = document.querySelector('#newEndDate').value
-
+    
     let goalBody = {}
-    goalBody._id = id || null
-    goalBody.goalName = newGoalName || null
-    goalBody.currentWeight = newCurrentWeight || null
-    goalBody.goalWeight = newGoalWeight || null
-    goalBody.startDate = newStartDate || null
-    goalBody.endDate = newEndDate || null
+    goalBody._id = id ;
+    goalBody.goalName = newGoalName;
+    goalBody.currentWeight = newCurrentWeight;
+    goalBody.goalWeight = newGoalWeight ;
+    goalBody.startDate = newStartDate;
+    goalBody.endDate = newEndDate;
 
     fetch("/profileGoals", {
         method: 'put',
@@ -22,7 +23,10 @@ function editButton(id){
         body:JSON.stringify(goalBody)
     })
     .then(res => {
-        if(res.ok){return res.json()}
+        if(res.ok){
+            alert("goal updated")
+            return res.json()
+        }
     })
     .then(data => {
         window.location.reload(true)
@@ -70,60 +74,10 @@ function deleteBtn(id){
     })
 }
 
-let goalsDiv = document.getElementById('goalsDiv')
 
-// function favoriteBtn(id){
-//    let favGoalCard = document.querySelector('#favoriteChecker')
-//     console.log('')
-//    if(!favGoalCard.classList.contains('favorite')){
-//     favGoalCard.classList.add('favorite')
-//    }else{
-//     favGoalCard.classList.remove('favorite')
-//    }
-
-// }
-
-
-goalsDiv.addEventListener('click', (e) => {
-    if(e.target.id === 'favoriteBtn'){
-        // let goalCardFav = e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1]
-        
-        // if(goalCardFav.classList.contains('favorite')){
-        //     goalCardFav.classList.remove('favorite')
-        // }else{
-        //     goalCardFav.classList.add('favorite')
-
-        // }
-        
-        // console.log('fav div classlist bool',e.target.parentNode.parentNode.parentNode.parentNode.childNodes[1].classList)
-
-        if(goalCardFav.classList.contains('true')){
-            //fetch sent to PUT false
-        }else{
-            //fetch sent to PUT true
-        }
-
-        fetch("/profileGoalsFavorite", {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify({})
-        })
-        .then(res => {
-            if(res.ok){return res.json()}
-        })
-        .then(data => {
-            window.location.reload(true)
-        })
-
-// When user clicks favorite
-//Gets true or false value from db
-//Then switches value based on 
-    }
-})
 
 function completedWorkout(id, complete){
 
-    
     if(complete == 'true'){
         fetch("/profileExerciseIncomplete", {
             method: 'put',
@@ -156,3 +110,9 @@ function completedWorkout(id, complete){
         })
     }
 }
+
+$(document).on("click","#update-goal", function(){
+    let data = $(this).data('id');
+    $(".modal-body #itemID").val(data);
+
+})
