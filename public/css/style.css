@@ -42,4 +42,9 @@
     height: 150px !important;
     margin:auto;
 } 
+#trophy{
+    font-size: 30px;
+    color: rgb(199, 169, 0);
+    float:right;
 
+}
