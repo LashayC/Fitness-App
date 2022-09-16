@@ -20,6 +20,7 @@
 </head>
 
 <body>
+
     <div class="row">
         <div class="col-md-2 sideNav">
             <!--SIDE NAV -->
@@ -73,6 +74,7 @@
                 <header class="p-2 bg-dark text-white mb-2 mt-2">
                     <h1 class="text-center">Workout Selection</h1>
                 </header>
+                <div id="liveAlertPlaceholder"></div>
                 <div class="row">
                     <div class="col-md-6 border">
                         <h2 class="text-center mb-5">Select a body part to workout</h2>
@@ -258,12 +260,12 @@
                 </div>
                 <div class="modal-body">
                     <!--ADD WORKOUT FORM -->
-                    <form action="/selection" method="post">
-                        <input id="exercise" class="text-center h2 w-100" name="name" readonly>
+                    <form action="/selection" method="post" id="modal-form">
+                        <input id="exercise" class="text-center h2 w-100" name="name" value=""id="workout_name" readonly>
                         <img class="w-100" id="image" src="" >
                         <div class="mb-3">
                             <label class="form-label" for="date">Date</label>
-                            <input class="form-control" type="date" name="date" required>
+                            <input class="form-control" type="date" name="date" required id="date">
                         </div>    
                         <div class="mb-3"> 
                             <label class="form-label" for="equipment">Equipment</label>
@@ -275,11 +277,11 @@
                         </div>  
                         <div class="mb-3">
                             <label class="form-label" for="duration">Duration in minutes</label>
-                            <input class="form-control" type="text" name="duration" placeholder="15" required>
+                            <input class="form-control" type="text" name="duration" id="duration" placeholder="15" required>
                         </div> 
                         <div class="mb-3">
                             <label class="form-label" for="weight">Intensity Level</label>
-                            <select class="form-control" type="text" name="intensity">
+                            <select class="form-control" type="text" name="intensity" id="intensity">
                                 <option value="light">light</option>
                                 <option value="moderate">moderate</option>
                                 <option value="vigorous">vigorous</option>
@@ -287,11 +289,11 @@
                          </div>  
                         <div class="mb-3">
                             <label class="form-label" for="weight">Weight</label>
-                            <input class="form-control" type="text" name="liftWeight" placeholder="30">
+                            <input class="form-control" type="text" name="liftweight" id="liftweight" placeholder="30">
                          </div>
                         <div class="mb-3">
                             <label class="form-label" for="reps">Reps</label>
-                            <input class="form-control" type="text" name="reps" placeholder="3">
+                            <input class="form-control" type="text" name="reps"  id="reps" placeholder="3">
                         </div>
                         <div class="mb-3" style="display:none">
                             <input class="form-control" type="text" name="image" id="imageSrc">
@@ -300,7 +302,7 @@
                 </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Workout</button>
+                    <button type="button" onclick="addWorkout()" class="btn btn-primary">Save Workout</button>
                  </form>
                 </div>
             </div>

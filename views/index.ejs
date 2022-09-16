@@ -75,50 +75,57 @@
             <% if(!goalsDB.totalEstimatedCalories){ %>
               <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
               <% } %>
-                <div class="col-md-3 rounded border p-2 ">
+                <div class="col-md-3 border p-2 ">
                   <h6>Current Weight</h6>
                   <h1>
-                    <%= goalsDB.currentWeight %><span>lbs</span>
+                    <%= goalsDB.currentWeight %> <span>lbs</span>
                   </h1>
                 </div>
-                <div class="col-md-3 rounded border  p-2 ">
-                  <h6>Total Workouts Completed</h6>
-                  <h1>
-                    <%= goalsDB.completedExercises %>
-                  </h1>
-                </div>
-                <div class="col-md-3 rounded border  p-3 ">
+
+                <div class="col-md-3  border  p-2 ">
                   <h6>Goal Weight</h6>
                   <h1>
                     <%= goalsDB.goalWeight %> <span>lbs</span>
                   </h1>
                 </div>
-                <div class="col-md-3 rounded border  p-3 ">
+                <div class="col-md-3  border  p-2 ">
+                  <h6>Total Workouts Completed</h6>
+                  <h1>
+                    <%= goalsDB.completedExercises %>
+                  </h1>
+                </div>
+                <div class="col-md-3  border  p-2 ">
                   <h6>Total Estimated Calories Burned</h6>
                   <h1>
                     <%= goalsDB.totalEstimatedCalories %>
                   </h1>
                 </div>
-
-                <!-- CHART DATA-->
-                <div class=" col border rounded p-3">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <div class="border" >
-                        <h2>Weight Loss Progress</h2>
-                        <canvas id="myChart"></canvas>
+                <div class="col-md-12 border p-2 ">
+                  <h3>Goal Progress</h3>
+                    <div class="row">
+                      <!--BAR -->
+                      <div class="col-md-11 pt-2">
+                        <div class="progress" style="height: 30px">
+                          <div class="progress-bar" role="progressbar"  aria-valuenow="25"
+                            aria-valuemin="0" aria-valuemax="100">
+                          </div>
+                        </div>
+                      </div>
+                      <!--Trophy-->
+                      <div class="col-md-1 ">
+                        <div class="col-md-6"><i class="bi bi-trophy-fill" id="trophy"></i></div>
                       </div>
                     </div>
-                    <div class="col-md-2">
-                      <div class="border">
-                        <h2>Goal Progress</h2>
-                        <canvas id="myBarChart"></canvas>
-                      </div>
-                    </div>
-                  </div>
-
-
+         
                 </div>
+                <!-- CHART DATA-->
+                <div class=" col-md-12 border p-3">
+                  <h3>Weight Progress</h3>
+                  <div style="width: 900px; height:auto; margin:auto">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+
       </div>
     </div>
   </div>
@@ -149,38 +156,17 @@
       config
     );
     // BAR CHART
-    const barChartlabels = ["Current Weight"];
-    let percentage = <%= goalsDB.currentWeight %> /<%= goalsDB.goalWeight %> *100 ;
+ 
+      let percentage =  <%= goalsDB.currentWeight %> /<%= goalsDB.goalWeight %> *100 ;
+      percentage = Math.round(percentage);
+     
+      let progressBar = document.querySelector('.progress-bar');
+      progressBar.style.width = percentage+"%"
+      progressBar.innerText = percentage+"%";
 
-    const barChartData = {
-      labels: barChartlabels,
-      datasets: [{
-        label: 'Goal Progress',
-        data: [percentage, 100],
-        backgroundColor: [
-          'rgba(75, 192, 192, 0.2)',
-        ],
-        borderColor: [
-          'rgb(75, 192, 192)',
-        ],
-        borderWidth: 1
-      }]
-    };
-    const barChartConfig = {
-      type: 'bar',
-      data: barChartData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      },
-    };
-    const myBarChart = new Chart(
-      document.getElementById('myBarChart'),
-      barChartConfig
-    );
+      if(percentage >= 100){
+          alert("Congrats! You've reached your goal :)")
+      }
 
   </script>
 </body>

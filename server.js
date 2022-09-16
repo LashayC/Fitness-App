@@ -95,13 +95,9 @@ app.post(
 
 // Route to Dashboard after authentication
 app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-  // res.send(`Hello ${req.user.username}. Your session ID is ${req.sessionID}
-  // and your session expires in ${req.session.cookie.maxAge}
-  // milliseconds.<br><br>
-  // <a href="/logout">Log Out</a><br><br><a href="/secret">Members Only</a>`);
+
   try {
     let data = {};
-    let chart = {};
     let labels = [];
     let entries = [];
     let caloriesSum = 0;
@@ -121,7 +117,7 @@ app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
       }
       data.currentWeight = goal.currentWeight;
       data.goalWeight = goal.goalWeight;
-      data.totalEstimatedCalories = caloriesSum;
+      data.totalEstimatedCalories = Math.round(caloriesSum);
       data.completedExercises = exercises.length;
     }
     res.render("index.ejs", { req: req, goalsDB: data, labels, entries })
@@ -169,6 +165,7 @@ app.get("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 })
 
 app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+  console.log(req.body)
   let objectId = ObjectId(req.user._id)
   let date = dayjs(req.body.date).format('MM-DD-YYYY')
   try{
@@ -191,7 +188,8 @@ app.post("/selection", connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
     await newExercises.save()
 
     console.log("exercise saved")
-    res.redirect("/workouts")
+
+    res.json("success");
   } catch (error) {
     console.error(error)
   }
