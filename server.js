@@ -76,7 +76,6 @@ app.post("/register", (req, res) => {
       email: req.body.email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      username: req.body.username,
       active: false,
     },
     req.body.password
