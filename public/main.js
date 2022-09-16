@@ -1,5 +1,5 @@
 
-// goals edit
+// PROFILE GOALS EDIT
 function editButton(){
 
     let id =document.querySelector('#itemID').value;
@@ -34,9 +34,8 @@ function editButton(){
 }
 
 
-// profile goals delete
+// PROFILE GOALS DELETE
 function deleteButton(id){
-
 
     fetch("/profileExercises", {
         method: 'delete',
@@ -54,10 +53,8 @@ function deleteButton(id){
 }
 
 
-// profile exercises delete
-
+// PROFILE EXERCISES DELETE
 function deleteBtn(id){
-
 
     fetch("/profileGoals", {
         method: 'delete',
@@ -75,7 +72,7 @@ function deleteBtn(id){
 }
 
 
-
+// PROFILE EXERCISES COMPLETION TOGGLE
 function completedWorkout(id, complete){
 
     if(complete == 'true'){

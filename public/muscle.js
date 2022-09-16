@@ -3,7 +3,7 @@ const urlParam = new URLSearchParams(queryString);
 const selectedMuscle = urlParam.get('muscle');
 
 document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group) {
-    // For the hover
+    // FOR THE HOVER
     group.addEventListener('mouseover', function (el) {
         let id = el.path[1].id.toLowerCase()
         if (!id) id = el.path[2].id.toLowerCase()
@@ -23,7 +23,7 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group)
         else
             label.className = label.className.replace(new RegExp('(^|\\b)' + clss.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
     })
-    // For the click
+    // FOR THE CLICK
     group.addEventListener('click', function (el) {
         let id = el.path[1].id.toLowerCase()
         if (!id) id = el.path[2].id.toLowerCase()
@@ -39,7 +39,7 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group)
 })
 
 
-// Submits Query to get workouts
+// SUBMITS QUERY TO GET WORKOUT
 function submit() {
     let form = document.getElementById('muscle-form');
    form.submit();
@@ -66,7 +66,7 @@ async function addWorkout(){
     data.bodypart = bodypart;
     data.duration =duration;
     data.intensity =intensity;
-    data.liftweight = liftweight;
+    data.liftWeight = liftweight;
     data.reps =reps;
 
     fetch("/selection", {
@@ -86,7 +86,7 @@ async function addWorkout(){
     })
 }
 
-// Updates Values in Add New Workout Modal
+// UPDATES VALUES IN ADD NEW WORKOUT MODAL
 $(document).on("click", "#add-workout-btn", function () {
     let data = $(this).data('id');
     $(".modal-body #exercise").val(data.name);
