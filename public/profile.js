@@ -1,14 +1,10 @@
+// PROFILE ACCOUNT UPDATE
 function editAccountInfo(id, currentFirstName, currentLastName, currentEmail, currentUser) {
-
-    // alert('profile values' + id + currentEmail + currentFirstName +  currentLastName)
-
 
   let newFirstName = document.querySelector("#firstName").value;
   let newLastName = document.querySelector("#lastName").value;
   let newEmail = document.querySelector("#email").value;
   let newUser = document.querySelector("#newUserName").value;
-
-//   alert('profile values the new' + newFirstName + newLastName + newEmail)
 
   let accountBody = {};
   accountBody._id = id;

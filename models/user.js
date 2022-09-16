@@ -15,7 +15,6 @@ const User = new Schema({
   username: {type: String, unique: true},
   email: String,
   password: String,
-  // image: String,
   firstName: String,
   lastName: String
 });
