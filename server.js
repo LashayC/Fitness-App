@@ -77,6 +77,7 @@ app.post("/register", (req, res) => {
       email: req.body.email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      username: req.body.username,
       active: false,
     },
     req.body.password
@@ -205,6 +206,7 @@ app.get("/profile", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
 });
 
+
 app.post("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   let objectId = ObjectId(req.user._id)
 
@@ -267,6 +269,7 @@ app.delete("/profileGoals", connectEnsureLogin.ensureLoggedIn(), async (req, res
   res.json("deleted")
 })
 
+
 app.put("/profileExerciseIncomplete",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
   try {
     let objectId = ObjectId(req.body._id)
@@ -289,7 +292,8 @@ app.put("/profileExerciseComplete",connectEnsureLogin.ensureLoggedIn(), async (r
     await Exercises.findOneAndUpdate({_id: objectId},{
       completed: req.body.completed
     })
-    res.json("Updated")
+    // res.json("Updated")
+
     res.redirect("/profile")
     console.log("complete request" + req.body)
   } catch (error) {
@@ -297,6 +301,24 @@ app.put("/profileExerciseComplete",connectEnsureLogin.ensureLoggedIn(), async (r
   }
 })
 
+// PROFILE ACCOUNT UPDATE ============
+app.put("/profileAccountUpdate",connectEnsureLogin.ensureLoggedIn(), async (req,res) =>{
+  try {
+    console.log("complete request profile" + req.body.firstName) 
+    let objectId = ObjectId(req.body._id)
+    console.log(objectId)
+  
+    await User.findOneAndUpdate({_id: objectId},{
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username
+    })
+    res.redirect("/profile")
+  } catch (error) {
+   console.log('Error:', error)
+  }
+})
 
 // calculates Calories
 async function calculateCalories(req) {

@@ -1,28 +1,34 @@
-function editButton(id){
+function editAccountInfo(id, currentFirstName, currentLastName, currentEmail, currentUser) {
 
-    let newGoalName = document.querySelector('#newGoalName').value
-    let newCurrentWeight = document.querySelector('#newCurrentWeight').value
-    let newGoalWeight = document.querySelector('#newGoalWeight').value
-    let newStartDate = document.querySelector('#newStartDate').value
-    let newEndDate = document.querySelector('#newEndDate').value
+    // alert('profile values' + id + currentEmail + currentFirstName +  currentLastName)
 
-    let goalBody = {}
-    goalBody._id = id || null
-    goalBody.goalName = newGoalName || null
-    goalBody.currentWeight = newCurrentWeight || null
-    goalBody.goalWeight = newGoalWeight || null
-    goalBody.startDate = newStartDate || null
-    goalBody.endDate = newEndDate || null
 
-    fetch("/profileGoals", {
-        method: 'put',
-        headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify(goalBody)
+  let newFirstName = document.querySelector("#firstName").value;
+  let newLastName = document.querySelector("#lastName").value;
+  let newEmail = document.querySelector("#email").value;
+  let newUser = document.querySelector("#newUserName").value;
+
+//   alert('profile values the new' + newFirstName + newLastName + newEmail)
+
+  let accountBody = {};
+  accountBody._id = id;
+  accountBody.firstName = newFirstName || currentFirstName;
+  accountBody.lastName = newLastName || currentLastName;
+  accountBody.email = newEmail || currentEmail;
+  accountBody.username = newUser || currentUser;
+
+  fetch("/profileAccountUpdate", {
+    method: "put",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(accountBody),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     })
-    .then(res => {
-        if(res.ok){return res.json()}
-    })
-    .then(data => {
-        window.location.reload(true)
-    })
+    .then((data) => {
+        alert('Changes to profile will show after signout. Use updated username on next signin.')
+      window.location.reload(true);
+    });
 }
