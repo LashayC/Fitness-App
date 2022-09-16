@@ -76,7 +76,7 @@
               <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
             <% } %>
 
-            <% if(goalsDB.goalMet){ %>
+            <% if(goalsDB.currentWeight == goalsDB.goalWeight && goalsDB.goalWeight ){ %>
               <div class="alert alert-success">Congrats! You've reached your goal </div>
             <% } %>
                 <div class="col-md-3 border p-2 ">
@@ -161,8 +161,16 @@
     );
     
     // PROGRESS BAR
-      let percentage =  <%= goalsDB.currentWeight %> /<%= goalsDB.goalWeight %> *100 ;
-      percentage = Math.round(percentage);
+    let percentage;
+    if(<%= goalsDB.currentWeight %> - <%=goalsDB.goalWeight%>   < 0 ){
+      percentage =   <%=goalsDB.currentWeight %>  / <%=goalsDB.goalWeight %> * 100 ;
+      percentage = Math.round(percentage)
+
+    }else{
+      percentage =  Math.round(<%=goalsDB.goalWeight %>/ <%=goalsDB.currentWeight %> * 100) ;
+      percentage = Math.round(percentage)
+    }
+
      
       let progressBar = document.querySelector('.progress-bar');
       progressBar.style.width = percentage+"%"
