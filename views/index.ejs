@@ -74,7 +74,11 @@
           <% } %>
             <% if(!goalsDB.totalEstimatedCalories){ %>
               <div class="alert alert-danger">Please enter <a href="/workouts">workouts</a> to see calories</div>
-              <% } %>
+            <% } %>
+
+            <% if(goalsDB.goalMet){ %>
+              <div class="alert alert-success">Congrats! You've reached your goal </div>
+            <% } %>
                 <div class="col-md-3 border p-2 ">
                   <h6>Current Weight</h6>
                   <h1>
@@ -163,10 +167,6 @@
       let progressBar = document.querySelector('.progress-bar');
       progressBar.style.width = percentage+"%"
       progressBar.innerText = percentage+"%";
-
-      if(percentage >= 100){
-          alert("Congrats! You've reached your goal :)")
-      }
 
   </script>
 </body>

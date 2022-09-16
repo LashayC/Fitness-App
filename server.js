@@ -115,6 +115,17 @@ app.get("/dashboard", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
       for (let i = 0; i < exercises.length; i++) {
         caloriesSum += exercises[i].calories;
       }
+      let goalToGain = (goal.goalWeight - goal.currentWeight)> 0 ? true: false;
+
+      if (goalToGain && goal.goalWeight >= goal.currentWeight){
+          data.goalMet = true;
+      }
+      else if(!goalToGain && goal.currentWeight <= goal.goalWeight ){
+         data.goalMet = true;
+      }else{
+        data.goalMet = false;
+      }
+
       data.currentWeight = goal.currentWeight;
       data.goalWeight = goal.goalWeight;
       data.totalEstimatedCalories = Math.round(caloriesSum);
